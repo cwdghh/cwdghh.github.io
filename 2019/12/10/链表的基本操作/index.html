@@ -46,14 +46,14 @@
   };
 </script>
 
-  <meta name="description" content="链表的基本操作 这周的课程笔者学习了链表，讲真的上课期间啥也没有听懂，这里打算写一下自己在下课后对链表基本操作的实现。  一、综述在本文中我希望实现以下的几个函数。 1linklist *scan(); &#x2F;&#x2F;实现链表的输入，最后返回链表的头指针；2void print(linklist *l); &#x2F;&#x2F;实现链表的打印；3linklist *insert_head(linklist *l, int m">
+  <meta name="description" content="链表的基本操作 在这周的课程中，笔者学习了链表，讲真的上课期间啥也没有听懂，这里打算写一下自己在下课后对链表基本操作的实现。  一、综述在本文中我希望实现以下的几个函数。 1linklist *scan(); &#x2F;&#x2F;实现链表的输入，最后返回链表的头指针；2void print(linklist *l); &#x2F;&#x2F;实现链表的打印；3linklist *insert_head(linklist *l, in">
 <meta property="og:type" content="article">
 <meta property="og:title" content="链表的基本操作">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;10&#x2F;%E9%93%BE%E8%A1%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C&#x2F;index.html">
 <meta property="og:site_name" content="吃完的贝壳">
-<meta property="og:description" content="链表的基本操作 这周的课程笔者学习了链表，讲真的上课期间啥也没有听懂，这里打算写一下自己在下课后对链表基本操作的实现。  一、综述在本文中我希望实现以下的几个函数。 1linklist *scan(); &#x2F;&#x2F;实现链表的输入，最后返回链表的头指针；2void print(linklist *l); &#x2F;&#x2F;实现链表的打印；3linklist *insert_head(linklist *l, int m">
+<meta property="og:description" content="链表的基本操作 在这周的课程中，笔者学习了链表，讲真的上课期间啥也没有听懂，这里打算写一下自己在下课后对链表基本操作的实现。  一、综述在本文中我希望实现以下的几个函数。 1linklist *scan(); &#x2F;&#x2F;实现链表的输入，最后返回链表的头指针；2void print(linklist *l); &#x2F;&#x2F;实现链表的打印；3linklist *insert_head(linklist *l, in">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-10T09:45:40.221Z">
+<meta property="og:updated_time" content="2019-12-10T11:03:44.648Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2019/12/10/%E9%93%BE%E8%A1%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">
@@ -197,7 +197,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-12-10 17:14:17 / 修改时间：17:45:40" itemprop="dateCreated datePublished" datetime="2019-12-10T17:14:17+08:00">2019-12-10</time>
+              <time title="创建时间：2019-12-10 17:14:17 / 修改时间：19:03:44" itemprop="dateCreated datePublished" datetime="2019-12-10T17:14:17+08:00">2019-12-10</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -229,7 +229,7 @@
 
       
         <h1 id="链表的基本操作"><a href="#链表的基本操作" class="headerlink" title="链表的基本操作"></a>链表的基本操作</h1><blockquote>
-<p>这周的课程笔者学习了链表，讲真的上课期间啥也没有听懂，这里打算写一下自己在下课后对链表基本操作的实现。</p>
+<p>在这周的课程中，笔者学习了链表，讲真的上课期间啥也没有听懂，这里打算写一下自己在下课后对链表基本操作的实现。</p>
 </blockquote>
 <h2 id="一、综述"><a href="#一、综述" class="headerlink" title="一、综述"></a>一、综述</h2><p>在本文中我希望实现以下的几个函数。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function">linklist *<span class="title">scan</span><span class="params">()</span></span>; <span class="comment">//实现链表的输入，最后返回链表的头指针；</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(linklist *l)</span></span>; <span class="comment">//实现链表的打印；</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="function">linklist *<span class="title">insert_head</span><span class="params">(linklist *l, <span class="keyword">int</span> m)</span></span>; <span class="comment">//实现对链表头部的拼接；</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="function">linklist *<span class="title">insert_end</span><span class="params">(linklist *l, <span class="keyword">int</span> m)</span></span>; <span class="comment">//实现对链表尾部的拼接；</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="function">linklist *<span class="title">delete_m</span><span class="params">(linklist *l, <span class="keyword">int</span> m)</span></span>; <span class="comment">//删除链表中所有数m；</span></span></pre></td></tr></table></figure>
