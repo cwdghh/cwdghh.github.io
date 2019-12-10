@@ -170,6 +170,93 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/10/%E9%93%BE%E8%A1%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="陈蔚">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吃完的贝壳">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/10/%E9%93%BE%E8%A1%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">链表的基本操作</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-12-10 17:14:17 / 修改时间：17:45:40" itemprop="dateCreated datePublished" datetime="2019-12-10T17:14:17+08:00">2019-12-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B/C%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index">
+                    <span itemprop="name">C语言</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="链表的基本操作"><a href="#链表的基本操作" class="headerlink" title="链表的基本操作"></a>链表的基本操作</h1><blockquote>
+<p>这周的课程笔者学习了链表，讲真的上课期间啥也没有听懂，这里打算写一下自己在下课后对链表基本操作的实现。</p>
+</blockquote>
+<h2 id="一、综述"><a href="#一、综述" class="headerlink" title="一、综述"></a>一、综述</h2><p>在本文中我希望实现以下的几个函数。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function">linklist *<span class="title">scan</span><span class="params">()</span></span>; <span class="comment">//实现链表的输入，最后返回链表的头指针；</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(linklist *l)</span></span>; <span class="comment">//实现链表的打印；</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="function">linklist *<span class="title">insert_head</span><span class="params">(linklist *l, <span class="keyword">int</span> m)</span></span>; <span class="comment">//实现对链表头部的拼接；</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="function">linklist *<span class="title">insert_end</span><span class="params">(linklist *l, <span class="keyword">int</span> m)</span></span>; <span class="comment">//实现对链表尾部的拼接；</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="function">linklist *<span class="title">delete_m</span><span class="params">(linklist *l, <span class="keyword">int</span> m)</span></span>; <span class="comment">//删除链表中所有数m；</span></span></pre></td></tr></table></figure>
+
+<h2 id="二、scan函数的实现"><a href="#二、scan函数的实现" class="headerlink" title="二、scan函数的实现"></a>二、scan函数的实现</h2><p>首先上代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function">linklist *<span class="title">scan</span><span class="params">()</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    linklist *ret = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(linklist)); <span class="comment">//定义一个返回的值，为了实现单一出口的原则；</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    linklist *p = ret; <span class="comment">//因为我们最后要返回ret，因此不能用ret来遍历；</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">int</span> entry; <span class="comment">//储存每一次输入；</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        linklist *<span class="keyword">new</span> = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(linklist)); <span class="comment">//申请一个动态内存来储存新输入的数；</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;entry);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">if</span>(entry==<span class="number">-1</span>)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">break</span>; <span class="comment">//输入的是“-1”的话就停止；</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">new</span>-&gt;data = entry; <span class="comment">//将entry储存在new中；</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        p-&gt;next = <span class="keyword">new</span>; <span class="comment">//让p-&gt;next指向new；</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">        p = p-&gt;next; <span class="comment">//让p向前移动一格；</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">    p-&gt;next = <span class="literal">NULL</span>; <span class="comment">//最后为了完成链表我们必须将p最后指向NULL，来标志其结束；</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">    ret = ret-&gt;next; <span class="comment">//我们需要将ret前移一格，因为ret本身内部是没有储存数据的；</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> ret;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>这里我们考虑的是让用户输入一个“-1”作为整个输入结束的标志。</p>
+<p>当然，实现链表的输入其实是不困难的，比较麻烦的是要考虑到所有可能的边界情况。</p>
+<p>这里笔者使用了一个技巧（不知道能不能解决所有的边界问题）：新定义一个ret，然后让ret指向链表的头指针，这样子的话不论第一个会不会是NULL都不会引起无效的指针调用。、</p>
+<h2 id="三、print函数的实现"><a href="#三、print函数的实现" class="headerlink" title="三、print函数的实现"></a>三、print函数的实现</h2>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/08/%E3%80%8A%E7%84%9A%E8%88%9F%E7%BA%AA%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -193,10 +280,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-12-08 22:32:39 / 修改时间：22:56:53" itemprop="dateCreated datePublished" datetime="2019-12-08T22:32:39+08:00">2019-12-08</time>
+              <time title="创建时间：2019-12-08 22:32:39" itemprop="dateCreated datePublished" datetime="2019-12-08T22:32:39+08:00">2019-12-08</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-10 17:15:14" itemprop="dateModified" datetime="2019-12-10T17:15:14+08:00">2019-12-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -269,10 +362,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-12-08 10:32:10 / 修改时间：10:32:59" itemprop="dateCreated datePublished" datetime="2019-12-08T10:32:10+08:00">2019-12-08</time>
+              <time title="创建时间：2019-12-08 10:32:10" itemprop="dateCreated datePublished" datetime="2019-12-08T10:32:10+08:00">2019-12-08</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-10 17:15:13" itemprop="dateModified" datetime="2019-12-10T17:15:13+08:00">2019-12-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -338,18 +437,30 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-12-08 10:30:57 / 修改时间：22:55:35" itemprop="dateCreated datePublished" datetime="2019-12-08T10:30:57+08:00">2019-12-08</time>
+              <time title="创建时间：2019-12-08 10:30:57" itemprop="dateCreated datePublished" datetime="2019-12-08T10:30:57+08:00">2019-12-08</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-10 16:10:41" itemprop="dateModified" datetime="2019-12-10T16:10:41+08:00">2019-12-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
-                    <span itemprop="name">学习</span>
+                  <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B/C%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index">
+                    <span itemprop="name">C语言</span>
                   </a>
                 </span>
             </span>
@@ -543,7 +654,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-08 22:41:23" itemprop="dateModified" datetime="2019-12-08T22:41:23+08:00">2019-12-08</time>
+                <time title="修改时间：2019-12-10 17:15:52" itemprop="dateModified" datetime="2019-12-10T17:15:52+08:00">2019-12-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -652,10 +763,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-12-07 14:02:59 / 修改时间：16:50:19" itemprop="dateCreated datePublished" datetime="2019-12-07T14:02:59+08:00">2019-12-07</time>
+              <time title="创建时间：2019-12-07 14:02:59" itemprop="dateCreated datePublished" datetime="2019-12-07T14:02:59+08:00">2019-12-07</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-10 17:15:19" itemprop="dateModified" datetime="2019-12-10T17:15:19+08:00">2019-12-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -779,14 +896,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>
