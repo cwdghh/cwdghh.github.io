@@ -53,7 +53,7 @@
 <meta property="og:site_name" content="吃完的贝壳">
 <meta property="og:description" content="C语言学习笔记 笔者今年学习C语言，其实还是很兴奋的。作为一个几乎零基础的学习者，笔者发现自己的C语言基础简直薄弱到“令人发指”的地步，因此打算写这篇文章来记录一下自己经常忘记的知识点。   因为是笔记所以是持续更新的哦。  笔记 在PTA上打程序填空题一定不要忘了加上 “;” ！不要忘了，不要忘了，不要忘了！重要的事情说三遍！ C是大小写敏感的，亦即APH和aph是两个不同的变量。 C中常量和变">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-10T15:24:06.766Z">
+<meta property="og:updated_time" content="2019-12-19T09:01:04.173Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2019/12/08/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
@@ -203,7 +203,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-10 23:24:06" itemprop="dateModified" datetime="2019-12-10T23:24:06+08:00">2019-12-10</time>
+                <time title="修改时间：2019-12-19 17:01:04" itemprop="dateModified" datetime="2019-12-19T17:01:04+08:00">2019-12-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -247,10 +247,28 @@
 <li>C的标识符要求由<strong>数字、字母、下划线</strong>组成，并且数字不可以作为第一个(理论上是这样的，但是实际上 <strong>$</strong> 也可以)。标识符分为关键字、预定义标识符、用户标识符。关键字不可以作为用户标识符，main、printf、scanf、define、If（首字母大写了）均可以用作用户标识符。预定义标识符<strong>可以</strong>作为用户标识符。</li>
 <li>C编写的程序称为源程序，又称编译单位。读程序都要从main{}入口， 有且仅有一个main函数作为程序的起点。</li>
 <li>编译预处理不是C的一部分，不占运行时间，不要加分号。</li>
-<li>define PI 3.1415926，一定不可以加上分号。</li>
+<li>#define PI 3.1415926，一定不可以加上分号（预定义的宏，你硬要加上分号也不是不可以，就是会把分号也替换进去，然后就会出错）。</li>
 <li>C在函数中不可以定义函数，但是可以声明或嵌套调用函数（但是在函数内部声明的函数的作用域只在被声明的函数内）。</li>
 <li>出现if的地方不一定需要出现else。</li>
-<li></li>
+<li>区分C语言中不同语句的值与副作用，比如赋值语句 <strong>k = 0</strong>，如果理解了这种区别就能搞清楚为什么 <strong>while ( k = 0 ) { ; }</strong> 的循环语句一次也不会执行。</li>
+<li>检查C语言中的 <strong>if</strong> 语句是否正确时我们要确保覆盖到了每一条分支，然后边界条件最好也要能单独分开来检测。</li>
+<li>使用嵌套 <strong>if</strong> 语句时，C语言规定 <strong>else</strong> 总是和之前与其最近且不带 <strong>else</strong> 的 <strong>if</strong> 配对。</li>
+<li>定义时，数组的大小不能是变量。</li>
+<li>循环体如包括有一个以上的语句，则必须用一对大括号{}括起来，组成复合语句，复合语句在语法上被认为是一条语句。</li>
+<li>在嵌套循环（多层循环）中, 每一层循环中都不应该改变其他层使用的循环变量的值，以免互相干扰。</li>
+<li><strong>break</strong> 语句只能用在循环体内和 switch 语句体内。</li>
+<li>C语言中，通过函数的调用可以得到零个或者一个返回值。</li>
+<li>不同于Pascal，在C语言中的 <strong>sizeof()</strong> 并不是函数而是一个运算符！</li>
+<li>在C语言中，不论将几维数组传入函数，实际上都是传入数组的头指针。因此，虽然二维数组在函数定义时要指出第二维的大小，在调用时只需要输入数组名（因为此时的数组名即为数组的头指针）。</li>
+<li>取整运算符 <strong>%</strong> 只能用在整数算子之间。</li>
+<li>数组的下标不可以是浮点数类型。</li>
+<li>如果初始化时指定的的元素个数比数组大小少，<strong>剩下的元素都会被初始化为 0</strong>。</li>
+<li>全局变量与局部变量可以同名，范围小的会在 <strong>{}</strong> 所示范围内覆盖范围大的。</li>
+<li>在所有的关系运算符（&gt;=、&gt;、==、!=、&lt;=、&lt;）中，优先级最低的运算符是 <strong>“==、!=”</strong> 。</li>
+<li>关于C语言指针的运算：指针只有加减操作，没有乘除操作。指针可以加常数、减常数；相同类型的指针可以相减，但是不能相加。</li>
+<li>int array[10]; 则该语句定义了一个数组array，其中array是数组名，并不是整型指针。此外，对数组名是不可以用 <strong>array++，array–</strong> 之类的运算的。</li>
+<li>在字符串数组定义时，是可以使用字面量给它初始化的，如 <strong>char str[10] = “string”;</strong> 但是数组定义完成之后就不能那字面量直接赋值了。此外，还应该注意的是 <strong>char str[10] = ‘string’</strong> 形式的初始化是不正确的，即在C语言中要区分 <strong>“”</strong> 和 <strong>‘’</strong> 的区别。当然，如果是指针的话，则定义时与定义后均可以使用字面量给其赋值，当然遗憾是不可以通过下标访问对指针相应位置上的值进行修改。</li>
+<li>区分 <strong>int (*p)[4]</strong> 和 <strong>int *p[4]</strong> ，前者指的是定义了一个指针p，这个指针指向一个有4个元素的数组，后者等价于 <strong>int *(p[4])</strong> ，指的是定义了一个指针数组p，其中包含了4个指针作为元素。</li>
 </ol>
 
     </div>
