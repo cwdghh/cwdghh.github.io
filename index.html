@@ -914,7 +914,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-19 17:01:04" itemprop="dateModified" datetime="2019-12-19T17:01:04+08:00">2019-12-19</time>
+                <time title="修改时间：2019-12-24 21:33:46" itemprop="dateModified" datetime="2019-12-24T21:33:46+08:00">2019-12-24</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -980,7 +980,119 @@
 <li>int array[10]; 则该语句定义了一个数组array，其中array是数组名，并不是整型指针。此外，对数组名是不可以用 <strong>array++，array–</strong> 之类的运算的。</li>
 <li>在字符串数组定义时，是可以使用字面量给它初始化的，如 <strong>char str[10] = “string”;</strong> 但是数组定义完成之后就不能那字面量直接赋值了。此外，还应该注意的是 <strong>char str[10] = ‘string’</strong> 形式的初始化是不正确的，即在C语言中要区分 <strong>“”</strong> 和 <strong>‘’</strong> 的区别。当然，如果是指针的话，则定义时与定义后均可以使用字面量给其赋值，当然遗憾是不可以通过下标访问对指针相应位置上的值进行修改。</li>
 <li>区分 <strong>int (*p)[4]</strong> 和 <strong>int *p[4]</strong> ，前者指的是定义了一个指针p，这个指针指向一个有4个元素的数组，后者等价于 <strong>int *(p[4])</strong> ，指的是定义了一个指针数组p，其中包含了4个指针作为元素。</li>
+<li>关于C语言中的格式输入输出：</li>
 </ol>
+<p><strong>printf:</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">格式字符</th>
+<th align="left">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">d</td>
+<td align="left">以十进制形式输出带符号的整数（正数不输出符号）</td>
+</tr>
+<tr>
+<td align="center">0</td>
+<td align="left">以八进制形式输出无符号的整数（不输出前缀0）</td>
+</tr>
+<tr>
+<td align="center">x, X</td>
+<td align="left">以十六进制形式输出无符号整数（不输出前缀0）</td>
+</tr>
+<tr>
+<td align="center">u</td>
+<td align="left">以十进制形式输出无符号整数</td>
+</tr>
+<tr>
+<td align="center">f</td>
+<td align="left">以小数形式输出单、双精度实数</td>
+</tr>
+<tr>
+<td align="center">e, E</td>
+<td align="left">以指数形式输出单、双精度实数</td>
+</tr>
+<tr>
+<td align="center">g, G</td>
+<td align="left">以 %f 或 %e 中较短的输出宽度输出单、双精度实数，注意这个时候输出的浮点数后置零不输出</td>
+</tr>
+<tr>
+<td align="center">c</td>
+<td align="left">输出单个字符</td>
+</tr>
+<tr>
+<td align="center">s</td>
+<td align="left">输出字符串</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">标志字符</th>
+<th align="left">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-</td>
+<td align="left">结果左对齐，右边用空格补齐，不加默认右对齐</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left">输出符号（正号或者符号）</td>
+</tr>
+<tr>
+<td align="center">空格</td>
+<td align="left">输出值为正时，前置空格；输出值为负时，前置负号</td>
+</tr>
+<tr>
+<td align="center">#</td>
+<td align="left">对于八进制数，输出时前缀o标志；对于十六进制数，x类前缀 0x ，X类前缀0X</td>
+</tr>
+</tbody></table>
+<p>此外，输出的最小宽度用形如 <strong>%2d</strong> 表示输出占两个格子；形如 <strong>%02d</strong> 表示输出占两个空格，不够的位数用0补齐；形如 <strong>%.2f</strong> 表示输出小数点后两位的浮点数；形如 <strong>%.2s</strong> 表示输出两个字符，截去超过的部分。</p>
+<p>最后，还可以在<strong>整数类型</strong>的格式字符前缀 <strong>h</strong> 或 <strong>l</strong> 分别表示输出短整型和长整型。</p>
+<p><strong>scanf:</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">格式字符</th>
+<th align="left">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">d</td>
+<td align="left">输入十进制整数</td>
+</tr>
+<tr>
+<td align="center">o</td>
+<td align="left">输入八进制整数</td>
+</tr>
+<tr>
+<td align="center">x</td>
+<td align="left">输入十六进制整数</td>
+</tr>
+<tr>
+<td align="center">u</td>
+<td align="left">输入无符号的十进制整数</td>
+</tr>
+<tr>
+<td align="center">f, e</td>
+<td align="left">输入实型数（用小数形式或指数形式）</td>
+</tr>
+<tr>
+<td align="center">c</td>
+<td align="left">输入单个字符</td>
+</tr>
+<tr>
+<td align="center">s</td>
+<td align="left">输入字符串（遇到空格、换行、制表符等即停止读入）</td>
+</tr>
+</tbody></table>
+<p>此外，<strong>*</strong> 符号表示该输入项读入后不赋予相应的变量，即跳过该输入值，例如：<strong>scanf(“%d %*d %d”, &amp;a, &amp;b);</strong> 表示忽略输入的第二个数，把第一个与第三个分别赋给a, b；形如 <strong>%5d</strong> 表示只读入整数的前五位，例如：<strong>scanf(“%4d%4d”, &amp;a, &amp;b)</strong> 表示将输入的数前四位赋给a，之后四位赋给b。</p>
+<p>最后，需要用 <strong>%ld</strong> 和 <strong>%lf</strong> 分别读入长整型和双精度浮点数数据。</p>
+<p>30. </p>
 
       
     </div>
