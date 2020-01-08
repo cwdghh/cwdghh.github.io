@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="优先级                                       运算符                                       名称或含义                                       使用形式                                       结合方向">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C语言运算符优先级表">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;08&#x2F;C%E8%AF%AD%E8%A8%80%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7%E8%A1%A8&#x2F;index.html">
+<meta property="og:site_name" content="吃完的贝壳">
+<meta property="og:description" content="优先级                                       运算符                                       名称或含义                                       使用形式                                       结合方向">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-08T05:37:58.598Z">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/01/08/C%E8%AF%AD%E8%A8%80%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7%E8%A1%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>C语言运算符优先级表 | 吃完的贝壳</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">吃完的贝壳</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">欢迎来到陈蔚的博客哦！</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/08/C%E8%AF%AD%E8%A8%80%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="陈蔚">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吃完的贝壳">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          C语言运算符优先级表
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-01-08 13:35:34 / 修改时间：13:37:58" itemprop="dateCreated datePublished" datetime="2020-01-08T13:35:34+08:00">2020-01-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B/C%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index">
+                    <span itemprop="name">C语言</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div class="table-box"><table border="1" cellspacing="0" cellpadding="0"><tbody><tr><td>
+            <p>优先级</p>
+            </td>
+            <td>
+            <p>运算符</p>
+            </td>
+            <td>
+            <p>名称或含义</p>
+            </td>
+            <td>
+            <p>使用形式</p>
+            </td>
+            <td>
+            <p>结合方向</p>
+            </td>
+            <td>
+            <p>说明</p>
+            </td>
+        </tr><tr><td rowspan="4">
+            <p>1</p>
+            </td>
+            <td>
+            <p>[]</p>
+            </td>
+            <td>
+            <p>数组下标</p>
+            </td>
+            <td>
+            <p>数组名[常量表达式]</p>
+            </td>
+            <td rowspan="4">
+            <p>左到右</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>()</p>
+            </td>
+            <td>
+            <p>圆括号</p>
+            </td>
+            <td>
+            <p>(表达式）/函数名(形参表)</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>.</p>
+            </td>
+            <td>
+            <p>成员选择（对象）</p>
+            </td>
+            <td>
+            <p>对象.成员名</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>-&gt;</p>
+            </td>
+            <td>
+            <p>成员选择（指针）</p>
+            </td>
+            <td>
+            <p>对象指针-&gt;成员名</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td rowspan="9">
+            <p>2</p>
+            </td>
+            <td>
+            <p>-</p>
+            </td>
+            <td>
+            <p>负号运算符</p>
+            </td>
+            <td>
+            <p>-表达式</p>
+            </td>
+            <td rowspan="9">
+            <p>右到左</p>
+            </td>
+            <td rowspan="7">
+            <p>单目运算符</p>
+            </td>
+        </tr><tr><td>
+            <p>~</p>
+            </td>
+            <td>
+            <p>按位取反运算符</p>
+            </td>
+            <td>
+            <p>~表达式</p>
+            </td>
+        </tr><tr><td>
+            <p>++</p>
+            </td>
+            <td>
+            <p>自增运算符</p>
+            </td>
+            <td>
+            <p>++变量名/变量名++</p>
+            </td>
+        </tr><tr><td>
+            <p>--</p>
+            </td>
+            <td>
+            <p>自减运算符</p>
+            </td>
+            <td>
+            <p>--变量名/变量名--</p>
+            </td>
+        </tr><tr><td>
+            <p>*</p>
+            </td>
+            <td>
+            <p>取值运算符</p>
+            </td>
+            <td>
+            <p>*指针变量</p>
+            </td>
+        </tr><tr><td>
+            <p>&amp;</p>
+            </td>
+            <td>
+            <p>取地址运算符</p>
+            </td>
+            <td>
+            <p>&amp;变量名</p>
+            </td>
+        </tr><tr><td>
+            <p>!</p>
+            </td>
+            <td>
+            <p>逻辑非运算符</p>
+            </td>
+            <td>
+            <p>!表达式</p>
+            </td>
+        </tr><tr><td>
+            <p>(类型)</p>
+            </td>
+            <td>
+            <p>强制类型转换</p>
+            </td>
+            <td>
+            <p>(数据类型)表达式</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>sizeof</p>
+            </td>
+            <td>
+            <p>长度运算符</p>
+            </td>
+            <td>
+            <p>sizeof(表达式)</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td rowspan="3">
+            <p>3</p>
+            </td>
+            <td>
+            <p>/</p>
+            </td>
+            <td>
+            <p>除</p>
+            </td>
+            <td>
+            <p>表达式/表达式</p>
+            </td>
+            <td rowspan="3">
+            <p>左到右</p>
+            </td>
+            <td rowspan="3">
+            <p>双目运算符</p>
+            </td>
+        </tr><tr><td>
+            <p>*</p>
+            </td>
+            <td>
+            <p>乘</p>
+            </td>
+            <td>
+            <p>表达式*表达式</p>
+            </td>
+        </tr><tr><td>
+            <p>%</p>
+            </td>
+            <td>
+            <p>余数（取模）</p>
+            </td>
+            <td>
+            <p>整型表达式%整型表达式</p>
+            </td>
+        </tr><tr><td rowspan="2">
+            <p>4</p>
+            </td>
+            <td>
+            <p>+</p>
+            </td>
+            <td>
+            <p>加</p>
+            </td>
+            <td>
+            <p>表达式+表达式</p>
+            </td>
+            <td rowspan="2">
+            <p>左到右</p>
+            </td>
+            <td rowspan="2">
+            <p>双目运算符</p>
+            </td>
+        </tr><tr><td>
+            <p>-</p>
+            </td>
+            <td>
+            <p>减</p>
+            </td>
+            <td>
+            <p>表达式-表达式</p>
+            </td>
+        </tr><tr><td rowspan="2">
+            <p>5</p>
+            </td>
+            <td>
+            <p>&lt;&lt;&nbsp;</p>
+            </td>
+            <td>
+            <p>左移</p>
+            </td>
+            <td>
+            <p>变量&lt;&lt;表达式</p>
+            </td>
+            <td rowspan="2">
+            <p>左到右</p>
+            </td>
+            <td rowspan="2">
+            <p>双目运算符</p>
+            </td>
+        </tr><tr><td>
+            <p>&gt;&gt;&nbsp;</p>
+            </td>
+            <td>
+            <p>右移</p>
+            </td>
+            <td>
+            <p>变量&gt;&gt;表达式</p>
+            </td>
+        </tr><tr><td rowspan="4">
+            <p>6</p>
+            </td>
+            <td>
+            <p>&gt;&nbsp;</p>
+            </td>
+            <td>
+            <p>大于</p>
+            </td>
+            <td>
+            <p>表达式&gt;表达式</p>
+            </td>
+            <td rowspan="4">
+            <p>左到右</p>
+            </td>
+            <td rowspan="4">
+            <p>双目运算符</p>
+            </td>
+        </tr><tr><td>
+            <p>&gt;=</p>
+            </td>
+            <td>
+            <p>大于等于</p>
+            </td>
+            <td>
+            <p>表达式&gt;=表达式</p>
+            </td>
+        </tr><tr><td>
+            <p>&lt;&nbsp;</p>
+            </td>
+            <td>
+            <p>小于</p>
+            </td>
+            <td>
+            <p>表达式&lt;表达式</p>
+            </td>
+        </tr><tr><td>
+            <p>&lt;=</p>
+            </td>
+            <td>
+            <p>小于等于</p>
+            </td>
+            <td>
+            <p>表达式&lt;=表达式</p>
+            </td>
+        </tr><tr><td rowspan="2">
+            <p>7</p>
+            </td>
+            <td>
+            <p>==</p>
+            </td>
+            <td>
+            <p>等于</p>
+            </td>
+            <td>
+            <p>表达式==表达式</p>
+            </td>
+            <td rowspan="2">
+            <p>左到右</p>
+            </td>
+            <td rowspan="2">
+            <p>双目运算符</p>
+            </td>
+        </tr><tr><td>
+            <p>！=</p>
+            </td>
+            <td>
+            <p>不等于</p>
+            </td>
+            <td>
+            <p>表达式!= 表达式</p>
+            </td>
+        </tr><tr><td>
+            <p>8</p>
+            </td>
+            <td>
+            <p>&amp;</p>
+            </td>
+            <td>
+            <p>按位与</p>
+            </td>
+            <td>
+            <p>表达式&amp;表达式</p>
+            </td>
+            <td>
+            <p>左到右</p>
+            </td>
+            <td>
+            <p>双目运算符</p>
+            </td>
+        </tr><tr><td>
+            <p>9</p>
+            </td>
+            <td>
+            <p>^</p>
+            </td>
+            <td>
+            <p>按位异或</p>
+            </td>
+            <td>
+            <p>表达式^表达式</p>
+            </td>
+            <td>
+            <p>左到右</p>
+            </td>
+            <td>
+            <p>双目运算符</p>
+            </td>
+        </tr><tr><td>
+            <p>10</p>
+            </td>
+            <td>
+            <p>|</p>
+            </td>
+            <td>
+            <p>按位或</p>
+            </td>
+            <td>
+            <p>表达式|表达式</p>
+            </td>
+            <td>
+            <p>左到右</p>
+            </td>
+            <td>
+            <p>双目运算符</p>
+            </td>
+        </tr><tr><td>
+            <p>11</p>
+            </td>
+            <td>
+            <p>&amp;&amp;</p>
+            </td>
+            <td>
+            <p>逻辑与</p>
+            </td>
+            <td>
+            <p>表达式&amp;&amp;表达式</p>
+            </td>
+            <td>
+            <p>左到右</p>
+            </td>
+            <td>
+            <p>双目运算符</p>
+            </td>
+        </tr><tr><td>
+            <p>12</p>
+            </td>
+            <td>
+            <p>||</p>
+            </td>
+            <td>
+            <p>逻辑或</p>
+            </td>
+            <td>
+            <p>表达式||表达式</p>
+            </td>
+            <td>
+            <p>左到右</p>
+            </td>
+            <td>
+            <p>双目运算符</p>
+            </td>
+        </tr><tr><td>
+            <p>13</p>
+            </td>
+            <td>
+            <p>?:</p>
+            </td>
+            <td>
+            <p>条件运算符</p>
+            </td>
+            <td>
+            <p>表达式1?</p>
+            <p>表达式2: 表达式3</p>
+            </td>
+            <td>
+            <p>右到左</p>
+            </td>
+            <td>
+            <p>三目运算符</p>
+            </td>
+        </tr><tr><td rowspan="11">
+            <p>14</p>
+            </td>
+            <td>
+            <p>=</p>
+            </td>
+            <td>
+            <p>赋值运算符</p>
+            </td>
+            <td>
+            <p>变量=表达式</p>
+            </td>
+            <td rowspan="11">
+            <p>右到左</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>/=</p>
+            </td>
+            <td>
+            <p>除后赋值</p>
+            </td>
+            <td>
+            <p>变量/=表达式</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>*=</p>
+            </td>
+            <td>
+            <p>乘后赋值</p>
+            </td>
+            <td>
+            <p>变量*=表达式</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>%=</p>
+            </td>
+            <td>
+            <p>取模后赋值</p>
+            </td>
+            <td>
+            <p>变量%=表达式</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>+=</p>
+            </td>
+            <td>
+            <p>加后赋值</p>
+            </td>
+            <td>
+            <p>变量+=表达式</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>-=</p>
+            </td>
+            <td>
+            <p>减后赋值</p>
+            </td>
+            <td>
+            <p>变量-=表达式</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>&lt;&lt;=</p>
+            </td>
+            <td>
+            <p>左移后赋值</p>
+            </td>
+            <td>
+            <p>变量&lt;&lt;=表达式</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>&gt;&gt;=</p>
+            </td>
+            <td>
+            <p>右移后赋值</p>
+            </td>
+            <td>
+            <p>变量&gt;&gt;=表达式</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>&amp;=</p>
+            </td>
+            <td>
+            <p>按位与后赋值</p>
+            </td>
+            <td>
+            <p>变量&amp;=表达式</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>^=</p>
+            </td>
+            <td>
+            <p>按位异或后赋值</p>
+            </td>
+            <td>
+            <p>变量^=表达式</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>|=</p>
+            </td>
+            <td>
+            <p>按位或后赋值</p>
+            </td>
+            <td>
+            <p>变量|=表达式</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>15</p>
+            </td>
+            <td>
+            <p>，</p>
+            </td>
+            <td>
+            <p>逗号运算符</p>
+            </td>
+            <td>
+            <p>表达式,表达式,…</p>
+            </td>
+            <td>
+            <p>左到右</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr></tbody></table></div>
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpg" alt="陈蔚 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/01/03/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%E4%B8%8E%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" rel="prev" title="归并排序与快速排序">
+      <i class="fa fa-chevron-left"></i> 归并排序与快速排序
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">陈蔚</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈蔚</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

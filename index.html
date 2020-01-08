@@ -170,6 +170,676 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/08/C%E8%AF%AD%E8%A8%80%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="陈蔚">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吃完的贝壳">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/08/C%E8%AF%AD%E8%A8%80%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7%E8%A1%A8/" class="post-title-link" itemprop="url">C语言运算符优先级表</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-01-08 13:35:34 / 修改时间：13:37:58" itemprop="dateCreated datePublished" datetime="2020-01-08T13:35:34+08:00">2020-01-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B/C%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index">
+                    <span itemprop="name">C语言</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <div class="table-box"><table border="1" cellspacing="0" cellpadding="0"><tbody><tr><td>
+            <p>优先级</p>
+            </td>
+            <td>
+            <p>运算符</p>
+            </td>
+            <td>
+            <p>名称或含义</p>
+            </td>
+            <td>
+            <p>使用形式</p>
+            </td>
+            <td>
+            <p>结合方向</p>
+            </td>
+            <td>
+            <p>说明</p>
+            </td>
+        </tr><tr><td rowspan="4">
+            <p>1</p>
+            </td>
+            <td>
+            <p>[]</p>
+            </td>
+            <td>
+            <p>数组下标</p>
+            </td>
+            <td>
+            <p>数组名[常量表达式]</p>
+            </td>
+            <td rowspan="4">
+            <p>左到右</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>()</p>
+            </td>
+            <td>
+            <p>圆括号</p>
+            </td>
+            <td>
+            <p>(表达式）/函数名(形参表)</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>.</p>
+            </td>
+            <td>
+            <p>成员选择（对象）</p>
+            </td>
+            <td>
+            <p>对象.成员名</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>-&gt;</p>
+            </td>
+            <td>
+            <p>成员选择（指针）</p>
+            </td>
+            <td>
+            <p>对象指针-&gt;成员名</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td rowspan="9">
+            <p>2</p>
+            </td>
+            <td>
+            <p>-</p>
+            </td>
+            <td>
+            <p>负号运算符</p>
+            </td>
+            <td>
+            <p>-表达式</p>
+            </td>
+            <td rowspan="9">
+            <p>右到左</p>
+            </td>
+            <td rowspan="7">
+            <p>单目运算符</p>
+            </td>
+        </tr><tr><td>
+            <p>~</p>
+            </td>
+            <td>
+            <p>按位取反运算符</p>
+            </td>
+            <td>
+            <p>~表达式</p>
+            </td>
+        </tr><tr><td>
+            <p>++</p>
+            </td>
+            <td>
+            <p>自增运算符</p>
+            </td>
+            <td>
+            <p>++变量名/变量名++</p>
+            </td>
+        </tr><tr><td>
+            <p>--</p>
+            </td>
+            <td>
+            <p>自减运算符</p>
+            </td>
+            <td>
+            <p>--变量名/变量名--</p>
+            </td>
+        </tr><tr><td>
+            <p>*</p>
+            </td>
+            <td>
+            <p>取值运算符</p>
+            </td>
+            <td>
+            <p>*指针变量</p>
+            </td>
+        </tr><tr><td>
+            <p>&amp;</p>
+            </td>
+            <td>
+            <p>取地址运算符</p>
+            </td>
+            <td>
+            <p>&amp;变量名</p>
+            </td>
+        </tr><tr><td>
+            <p>!</p>
+            </td>
+            <td>
+            <p>逻辑非运算符</p>
+            </td>
+            <td>
+            <p>!表达式</p>
+            </td>
+        </tr><tr><td>
+            <p>(类型)</p>
+            </td>
+            <td>
+            <p>强制类型转换</p>
+            </td>
+            <td>
+            <p>(数据类型)表达式</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>sizeof</p>
+            </td>
+            <td>
+            <p>长度运算符</p>
+            </td>
+            <td>
+            <p>sizeof(表达式)</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td rowspan="3">
+            <p>3</p>
+            </td>
+            <td>
+            <p>/</p>
+            </td>
+            <td>
+            <p>除</p>
+            </td>
+            <td>
+            <p>表达式/表达式</p>
+            </td>
+            <td rowspan="3">
+            <p>左到右</p>
+            </td>
+            <td rowspan="3">
+            <p>双目运算符</p>
+            </td>
+        </tr><tr><td>
+            <p>*</p>
+            </td>
+            <td>
+            <p>乘</p>
+            </td>
+            <td>
+            <p>表达式*表达式</p>
+            </td>
+        </tr><tr><td>
+            <p>%</p>
+            </td>
+            <td>
+            <p>余数（取模）</p>
+            </td>
+            <td>
+            <p>整型表达式%整型表达式</p>
+            </td>
+        </tr><tr><td rowspan="2">
+            <p>4</p>
+            </td>
+            <td>
+            <p>+</p>
+            </td>
+            <td>
+            <p>加</p>
+            </td>
+            <td>
+            <p>表达式+表达式</p>
+            </td>
+            <td rowspan="2">
+            <p>左到右</p>
+            </td>
+            <td rowspan="2">
+            <p>双目运算符</p>
+            </td>
+        </tr><tr><td>
+            <p>-</p>
+            </td>
+            <td>
+            <p>减</p>
+            </td>
+            <td>
+            <p>表达式-表达式</p>
+            </td>
+        </tr><tr><td rowspan="2">
+            <p>5</p>
+            </td>
+            <td>
+            <p>&lt;&lt;&nbsp;</p>
+            </td>
+            <td>
+            <p>左移</p>
+            </td>
+            <td>
+            <p>变量&lt;&lt;表达式</p>
+            </td>
+            <td rowspan="2">
+            <p>左到右</p>
+            </td>
+            <td rowspan="2">
+            <p>双目运算符</p>
+            </td>
+        </tr><tr><td>
+            <p>&gt;&gt;&nbsp;</p>
+            </td>
+            <td>
+            <p>右移</p>
+            </td>
+            <td>
+            <p>变量&gt;&gt;表达式</p>
+            </td>
+        </tr><tr><td rowspan="4">
+            <p>6</p>
+            </td>
+            <td>
+            <p>&gt;&nbsp;</p>
+            </td>
+            <td>
+            <p>大于</p>
+            </td>
+            <td>
+            <p>表达式&gt;表达式</p>
+            </td>
+            <td rowspan="4">
+            <p>左到右</p>
+            </td>
+            <td rowspan="4">
+            <p>双目运算符</p>
+            </td>
+        </tr><tr><td>
+            <p>&gt;=</p>
+            </td>
+            <td>
+            <p>大于等于</p>
+            </td>
+            <td>
+            <p>表达式&gt;=表达式</p>
+            </td>
+        </tr><tr><td>
+            <p>&lt;&nbsp;</p>
+            </td>
+            <td>
+            <p>小于</p>
+            </td>
+            <td>
+            <p>表达式&lt;表达式</p>
+            </td>
+        </tr><tr><td>
+            <p>&lt;=</p>
+            </td>
+            <td>
+            <p>小于等于</p>
+            </td>
+            <td>
+            <p>表达式&lt;=表达式</p>
+            </td>
+        </tr><tr><td rowspan="2">
+            <p>7</p>
+            </td>
+            <td>
+            <p>==</p>
+            </td>
+            <td>
+            <p>等于</p>
+            </td>
+            <td>
+            <p>表达式==表达式</p>
+            </td>
+            <td rowspan="2">
+            <p>左到右</p>
+            </td>
+            <td rowspan="2">
+            <p>双目运算符</p>
+            </td>
+        </tr><tr><td>
+            <p>！=</p>
+            </td>
+            <td>
+            <p>不等于</p>
+            </td>
+            <td>
+            <p>表达式!= 表达式</p>
+            </td>
+        </tr><tr><td>
+            <p>8</p>
+            </td>
+            <td>
+            <p>&amp;</p>
+            </td>
+            <td>
+            <p>按位与</p>
+            </td>
+            <td>
+            <p>表达式&amp;表达式</p>
+            </td>
+            <td>
+            <p>左到右</p>
+            </td>
+            <td>
+            <p>双目运算符</p>
+            </td>
+        </tr><tr><td>
+            <p>9</p>
+            </td>
+            <td>
+            <p>^</p>
+            </td>
+            <td>
+            <p>按位异或</p>
+            </td>
+            <td>
+            <p>表达式^表达式</p>
+            </td>
+            <td>
+            <p>左到右</p>
+            </td>
+            <td>
+            <p>双目运算符</p>
+            </td>
+        </tr><tr><td>
+            <p>10</p>
+            </td>
+            <td>
+            <p>|</p>
+            </td>
+            <td>
+            <p>按位或</p>
+            </td>
+            <td>
+            <p>表达式|表达式</p>
+            </td>
+            <td>
+            <p>左到右</p>
+            </td>
+            <td>
+            <p>双目运算符</p>
+            </td>
+        </tr><tr><td>
+            <p>11</p>
+            </td>
+            <td>
+            <p>&amp;&amp;</p>
+            </td>
+            <td>
+            <p>逻辑与</p>
+            </td>
+            <td>
+            <p>表达式&amp;&amp;表达式</p>
+            </td>
+            <td>
+            <p>左到右</p>
+            </td>
+            <td>
+            <p>双目运算符</p>
+            </td>
+        </tr><tr><td>
+            <p>12</p>
+            </td>
+            <td>
+            <p>||</p>
+            </td>
+            <td>
+            <p>逻辑或</p>
+            </td>
+            <td>
+            <p>表达式||表达式</p>
+            </td>
+            <td>
+            <p>左到右</p>
+            </td>
+            <td>
+            <p>双目运算符</p>
+            </td>
+        </tr><tr><td>
+            <p>13</p>
+            </td>
+            <td>
+            <p>?:</p>
+            </td>
+            <td>
+            <p>条件运算符</p>
+            </td>
+            <td>
+            <p>表达式1?</p>
+            <p>表达式2: 表达式3</p>
+            </td>
+            <td>
+            <p>右到左</p>
+            </td>
+            <td>
+            <p>三目运算符</p>
+            </td>
+        </tr><tr><td rowspan="11">
+            <p>14</p>
+            </td>
+            <td>
+            <p>=</p>
+            </td>
+            <td>
+            <p>赋值运算符</p>
+            </td>
+            <td>
+            <p>变量=表达式</p>
+            </td>
+            <td rowspan="11">
+            <p>右到左</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>/=</p>
+            </td>
+            <td>
+            <p>除后赋值</p>
+            </td>
+            <td>
+            <p>变量/=表达式</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>*=</p>
+            </td>
+            <td>
+            <p>乘后赋值</p>
+            </td>
+            <td>
+            <p>变量*=表达式</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>%=</p>
+            </td>
+            <td>
+            <p>取模后赋值</p>
+            </td>
+            <td>
+            <p>变量%=表达式</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>+=</p>
+            </td>
+            <td>
+            <p>加后赋值</p>
+            </td>
+            <td>
+            <p>变量+=表达式</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>-=</p>
+            </td>
+            <td>
+            <p>减后赋值</p>
+            </td>
+            <td>
+            <p>变量-=表达式</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>&lt;&lt;=</p>
+            </td>
+            <td>
+            <p>左移后赋值</p>
+            </td>
+            <td>
+            <p>变量&lt;&lt;=表达式</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>&gt;&gt;=</p>
+            </td>
+            <td>
+            <p>右移后赋值</p>
+            </td>
+            <td>
+            <p>变量&gt;&gt;=表达式</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>&amp;=</p>
+            </td>
+            <td>
+            <p>按位与后赋值</p>
+            </td>
+            <td>
+            <p>变量&amp;=表达式</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>^=</p>
+            </td>
+            <td>
+            <p>按位异或后赋值</p>
+            </td>
+            <td>
+            <p>变量^=表达式</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>|=</p>
+            </td>
+            <td>
+            <p>按位或后赋值</p>
+            </td>
+            <td>
+            <p>变量|=表达式</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr><tr><td>
+            <p>15</p>
+            </td>
+            <td>
+            <p>，</p>
+            </td>
+            <td>
+            <p>逗号运算符</p>
+            </td>
+            <td>
+            <p>表达式,表达式,…</p>
+            </td>
+            <td>
+            <p>左到右</p>
+            </td>
+            <td>
+            <p>--</p>
+            </td>
+        </tr></tbody></table></div>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/03/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%E4%B8%8E%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -245,63 +915,6 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> start, <span class="keyword">int</span> <span class="built_in">end</span>)</span></span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">int</span> n;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">int</span> a[n];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;a[i]);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    sort(a, <span class="number">0</span>, n<span class="number">-1</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d "</span>, a[i]);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> start, <span class="keyword">int</span> <span class="built_in">end</span>)</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span>(start&gt;=<span class="built_in">end</span>) <span class="keyword">return</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">int</span> i = start;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">int</span> pivot = a[<span class="built_in">end</span>];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=start;j&lt;<span class="built_in">end</span>;j++)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">if</span>(a[j]&lt;pivot)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">            <span class="comment">// 每次交换后，保证i左边的所有数都比pivot小，i及i右边的所有数都大于或者等于pivot</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">int</span> temp = a[j];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">            a[j] = a[i];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">            a[i] = temp;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">            i++;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// 最后交换a[i]与pivot的位置，就达到了用pivot划分数列的目的</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">int</span> temp = a[<span class="built_in">end</span>];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line">    a[<span class="built_in">end</span>] = a[i];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line">    a[i] = temp;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line">    sort(a, start, i<span class="number">-1</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line">    sort(a, i+<span class="number">1</span>, <span class="built_in">end</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
 
 <h3 id="快速排序的第二种实现方式"><a href="#快速排序的第二种实现方式" class="headerlink" title="快速排序的第二种实现方式"></a>快速排序的第二种实现方式</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;time.h&gt;</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> start, <span class="keyword">int</span> <span class="built_in">end</span>)</span></span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">int</span> n;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">int</span> a[n];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;a[i]);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    sort(a, <span class="number">0</span>, n<span class="number">-1</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d "</span>, a[i]);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> start, <span class="keyword">int</span> <span class="built_in">end</span>)</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span>(start&gt;=<span class="built_in">end</span>) <span class="keyword">return</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">    srand(time(<span class="literal">NULL</span>));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// 利用随机数选取pivot，至少不会让结果太差，虽然也不一定会很好</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">int</span> <span class="built_in">random</span> = rand()%(<span class="built_in">end</span>-start) + start;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">int</span> pivot = a[<span class="built_in">random</span>];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">int</span> i = start<span class="number">-1</span>, j = <span class="built_in">end</span>+<span class="number">1</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">// 寻找一对数，其中下标较小的数大于等于pivot，下标较大的数小于等于pivot</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">// 这样我们称其顺序正好颠倒，因此我们交换其位置</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">do</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line">            i++;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line">        &#125;<span class="keyword">while</span>(a[i]&lt;pivot);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">do</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line">            j--;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line">        &#125;<span class="keyword">while</span>(a[j]&gt;pivot);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">if</span>(i&gt;=j) <span class="keyword">break</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">int</span> temp = a[j];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">39</span></pre></td><td class="code"><pre><span class="line">        a[j] = a[i];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">40</span></pre></td><td class="code"><pre><span class="line">        a[i] = temp;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">41</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">42</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// 循环结束后，保证j右边的数肯定是都大于pivot的，j及j左边的数小于等于pivot，完成划分</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">43</span></pre></td><td class="code"><pre><span class="line">    sort(a, start, j);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">44</span></pre></td><td class="code"><pre><span class="line">    sort(a, j+<span class="number">1</span>, <span class="built_in">end</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">45</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/21/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="陈蔚">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="吃完的贝壳">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/21/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">吴恩达机器学习课程笔记</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-12-21 13:28:24" itemprop="dateCreated datePublished" datetime="2019-12-21T13:28:24+08:00">2019-12-21</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
       
     </div>
 
@@ -418,10 +1031,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-12-21 13:24:21 / 修改时间：20:28:51" itemprop="dateCreated datePublished" datetime="2019-12-21T13:24:21+08:00">2019-12-21</time>
+              <time title="创建时间：2019-12-21 13:24:21" itemprop="dateCreated datePublished" datetime="2019-12-21T13:24:21+08:00">2019-12-21</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-03 15:29:25" itemprop="dateModified" datetime="2020-01-03T15:29:25+08:00">2020-01-03</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -458,13 +1077,13 @@
 <p>NumPy是Python中的一个用于进行科学计算的核心库。它在进行高维的array对象计算中，是十分有效率的。</p>
 </blockquote>
 <h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><p>首先，我们可以用Python内置的list对象来初始化NumPy的array对象，并通过用方括号括起来的数来取出其中的数。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创造一个一列的array对象，其类型为 &lt;class 'numpy.ndarray'&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">a = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创造一个多维的array对象</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">b = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 其中，可以用 .shape[] 方法得到 b 对象各个维度的值，shape[0]返回第一维，以此类推，不标则对应所有维度</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">print(b.shape)</span></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创造一个一列的array对象，其类型为 &lt;class 'numpy.ndarray'&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">a = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创造一个多维的array对象</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">b = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 其中，可以用 .shape[] 方法得到 b 对象各个维度的值，</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># shape[0]返回第一维，以此类推，不标则对应所有维度</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">print(b.shape)</span></pre></td></tr></table></figure>
 
 <p>此外，NumPy还提供了一些创造array对象的函数</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 以下分别创造全零矩阵，全一矩阵，单位矩阵，每一个元素全部相等（可以自己给定）的矩阵</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">a = np.zeros((<span class="number">2</span>, <span class="number">2</span>))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">b = np.ones((<span class="number">1</span>, <span class="number">2</span>))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">c = np.full((<span class="number">2</span>, <span class="number">2</span>), <span class="number">7</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">d = np.eye(<span class="number">2</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">e = np.random.random((<span class="number">2</span>, <span class="number">2</span>))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">y = np.empty_like(x)    <span class="comment"># 创造一个和x有相同大小的空矩阵</span></span></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 以下分别创造全零矩阵，全一矩阵，单位矩阵，每一个元素</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 全部相等（可以自己给定）的矩阵</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">a = np.zeros((<span class="number">2</span>, <span class="number">2</span>))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">b = np.ones((<span class="number">1</span>, <span class="number">2</span>))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">c = np.full((<span class="number">2</span>, <span class="number">2</span>), <span class="number">7</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">d = np.eye(<span class="number">2</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">e = np.random.random((<span class="number">2</span>, <span class="number">2</span>))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">y = np.empty_like(x)    <span class="comment"># 创造一个和x有相同大小的空矩阵</span></span></pre></td></tr></table></figure>
 
 <p>之后，关于NumPy的下标问题，我们同样可以像对list对象一样使用切片等</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创造一个array对象，注意二维的时候对象是一个list，而list中的每一个元素又都是一个list</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">a = np.array([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>], [<span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>], [<span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>]])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">b = a[:<span class="number">2</span>, <span class="number">1</span>:<span class="number">3</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意这样得到的切片并不是一份拷贝而是同一个数据，因此改变切片中的数据实际上也会改变本来的数据。</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 同样，数组可以混合使用整数下标和切片下标，但是混合使用时，有array的维度发生了转变，因此，就算只用切片取出一列或一行最好也都使用切片</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">row_r1 = a[<span class="number">1</span>:<span class="number">2</span>, :]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可以用两个array作为下标分别取出每一行中的对应元素</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">b = np.array([<span class="number">0</span> ,<span class="number">2</span>, <span class="number">3</span>])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">print(a[np.arange(<span class="number">3</span>), b])</span></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创造一个array对象，注意二维的时候对象是一个list，</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 而list中的每一个元素又都是一个list</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">a = np.array([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>], [<span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>], [<span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>]])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">b = a[:<span class="number">2</span>, <span class="number">1</span>:<span class="number">3</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意这样得到的切片并不是一份拷贝而是同一个数据，</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 因此改变切片中的数据实际上也会改变本来的数据。</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 同样，数组可以混合使用整数下标和切片下标，但是混合使用时，</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># array的维度会发生转变，因此，就算只用切片取出一列或一行最好也都使用切片</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">row_r1 = a[<span class="number">1</span>:<span class="number">2</span>, :]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可以用两个array作为下标分别取出每一行中的对应元素</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">b = np.array([<span class="number">0</span> ,<span class="number">2</span>, <span class="number">3</span>])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">print(a[np.arange(<span class="number">3</span>), b])</span></pre></td></tr></table></figure>
 
 <p>我们选择使用array类型的原因是其比list高效且易操作，这里给出一些数学运算，需要在注意的是基本的数学运算在array类型中都是对array的各个元素分别做的。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">x = np.array([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]], dtype=np.float64)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">y = np.array([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]], dtype=np.float64)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 以下分别演示矩阵的加、乘、开方等操作</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先是矩阵的相加、开方</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">print(x + y)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">print(np.add(x, y))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">print(np.sqrt(x))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 矩阵直接用乘号连接表达的意思是矩阵对应元素项的相乘</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">print(x * y)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">print(np.multiply(x, y))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 向量、矩阵等的乘法的实现方式</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">print(x.dot(y))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">print(np.dot(x, y))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 分别求矩阵的所有元素和、每一列元素和、每一行元素和</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">print(np.sum(x))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">print(np.sum(x, axis=<span class="number">0</span>))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">print(np.sum(x, axis=<span class="number">1</span>))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 还有简单的转置操作，这里要注意对向量的转置并没有使其发生变化</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">print(x.T)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">v = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">print(v.T)      <span class="comment"># v没有发生变化</span></span></pre></td></tr></table></figure>
@@ -474,7 +1093,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">x = np.array([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>], [<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>], [<span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>, <span class="number">13</span>]])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">v = np.array([<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 因为广播的原因，v会被拷贝直到两者相等</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">y = x + v   <span class="comment"># == x + np.title(v, (4, 1))</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">w = np.array([<span class="number">4</span>, <span class="number">5</span>])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">print(np.reshape(v, (<span class="number">3</span>, <span class="number">1</span>)) + w)</span></pre></td></tr></table></figure>
 
 <p>补充我在写KNN时遇到的几个需要用的NumPy函数</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下面的这条表达式是找出所有训练点中与测试点距离最近的k个训练点的标签</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 特别地，argsort()函数的作用是将array对象中的所有元素按照从小到大的顺序进行排列</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">closet_y = self.y_train[np.argsort(dists[i, :])[:k]]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下面的这条表达式作用是找出所有标签中出现次数最多的标签，并将这个标签赋给y_pred[i]</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 特别地，bincount()的作用是计算从零到标签最大值（整数）之间各个数出现的次数</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># argmax()——argmin()同理——返回在所求array对象中最大的元素的下标</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">y_pred[i] = np.argmax(np.bincount(closet_y))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 特别地，argmax()函数也可以加上参数axis，以下两条分别表示求每一列的最大值和每一行的最大值</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">print(np.argmax(a, axis=<span class="number">0</span>))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">print(np.argmax(a, axis=<span class="number">1</span>))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下面补充两个折磨了我很久的函数hstack()和vstack()，作用是将两个array类型的对象拼接到一起。这两句的意思是将X_train_folds和y_train_folds中除了第i个以外的所有点合成训练集，进行交叉验证(cross validation)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">X_tr = np.vstack(X_train_folds[:i] + X_train_folds[i+<span class="number">1</span>:])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">y_tr = np.hstack(y_train_folds[:i] + y_train_folds[i+<span class="number">1</span>:])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 一个更加正式的写法如下</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 其中，vstack()的作用是将array对象拼接到不同维度上，按列方向堆叠</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># hstack()的作用是将array对象在同一维度上拼接，按行方向堆叠</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">print(np.vstack((a, b)))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">print(np.hstack((a, b)))</span></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下面的这条表达式是找出所有训练点中与测试点距离最近的k个训练点的标签</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 特别地，argsort()函数的作用是将array对象中的所有元素按照从小到大的顺序进行排列</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">closet_y = self.y_train[np.argsort(dists[i, :])[:k]]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下面的这条表达式作用是找出所有标签中出现次数最多的标签，并将这个标签赋给y_pred[i]</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 特别地，bincount()的作用是计算从零到标签最大值（整数）之间各个数出现的次数</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># argmax()——argmin()同理——返回在所求array对象中最大的元素的下标</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">y_pred[i] = np.argmax(np.bincount(closet_y))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 特别地，argmax()函数也可以加上参数axis，以下两条分别表示求每一列的最大值和每一行的最大值</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">print(np.argmax(a, axis=<span class="number">0</span>))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">print(np.argmax(a, axis=<span class="number">1</span>))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下面补充两个折磨了我很久的函数hstack()和vstack()，</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"><span class="comment">#作用是将两个array类型的对象拼接到一起。这两句的意思是</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将X_train_folds和y_train_folds中除了第i个以外的所有点合成训练集</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从而进行交叉验证(cross validation)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">X_tr = np.vstack(X_train_folds[:i] + X_train_folds[i+<span class="number">1</span>:])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">y_tr = np.hstack(y_train_folds[:i] + y_train_folds[i+<span class="number">1</span>:])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 一个更加正式的写法如下</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># 其中，vstack()的作用是将array对象拼接到不同维度上，按列方向堆叠</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># hstack()的作用是将array对象在同一维度上拼接，按行方向堆叠</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">print(np.vstack((a, b)))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">print(np.hstack((a, b)))</span></pre></td></tr></table></figure>
       
     </div>
 
@@ -1013,7 +1632,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-24 21:33:46" itemprop="dateModified" datetime="2019-12-24T21:33:46+08:00">2019-12-24</time>
+                <time title="修改时间：2020-01-08 13:34:30" itemprop="dateModified" datetime="2020-01-08T13:34:30+08:00">2020-01-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1047,39 +1666,65 @@
           <h1 id="C语言学习笔记"><a href="#C语言学习笔记" class="headerlink" title="C语言学习笔记"></a>C语言学习笔记</h1><blockquote>
 <p>笔者今年学习C语言，其实还是很兴奋的。作为一个几乎零基础的学习者，笔者发现自己的C语言基础简直薄弱到“令人发指”的地步，因此打算写这篇文章来记录一下自己经常忘记的知识点。</p>
 </blockquote>
-<blockquote>
-<p>因为是笔记所以是持续更新的哦。</p>
-</blockquote>
 <h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><ol>
-<li>在PTA上打程序填空题一定不要忘了加上 <strong>“;”</strong> ！不要忘了，不要忘了，不要忘了！重要的事情说三遍！</li>
-<li>C是大小写敏感的，亦即APH和aph是两个不同的变量。</li>
-<li>C中常量和变量都有数据类型。</li>
-<li>C的标识符要求由<strong>数字、字母、下划线</strong>组成，并且数字不可以作为第一个(理论上是这样的，但是实际上 <strong>$</strong> 也可以)。标识符分为关键字、预定义标识符、用户标识符。关键字不可以作为用户标识符，main、printf、scanf、define、If（首字母大写了）均可以用作用户标识符。预定义标识符<strong>可以</strong>作为用户标识符。</li>
-<li>C编写的程序称为源程序，又称编译单位。读程序都要从main{}入口， 有且仅有一个main函数作为程序的起点。</li>
-<li>编译预处理不是C的一部分，不占运行时间，不要加分号。</li>
-<li>#define PI 3.1415926，一定不可以加上分号（预定义的宏，你硬要加上分号也不是不可以，就是会把分号也替换进去，然后就会出错）。</li>
-<li>C在函数中不可以定义函数，但是可以声明或嵌套调用函数（但是在函数内部声明的函数的作用域只在被声明的函数内）。</li>
-<li>出现if的地方不一定需要出现else。</li>
-<li>区分C语言中不同语句的值与副作用，比如赋值语句 <strong>k = 0</strong>，如果理解了这种区别就能搞清楚为什么 <strong>while ( k = 0 ) { ; }</strong> 的循环语句一次也不会执行。</li>
-<li>检查C语言中的 <strong>if</strong> 语句是否正确时我们要确保覆盖到了每一条分支，然后边界条件最好也要能单独分开来检测。</li>
-<li>使用嵌套 <strong>if</strong> 语句时，C语言规定 <strong>else</strong> 总是和之前与其最近且不带 <strong>else</strong> 的 <strong>if</strong> 配对。</li>
-<li>定义时，数组的大小不能是变量。</li>
-<li>循环体如包括有一个以上的语句，则必须用一对大括号{}括起来，组成复合语句，复合语句在语法上被认为是一条语句。</li>
-<li>在嵌套循环（多层循环）中, 每一层循环中都不应该改变其他层使用的循环变量的值，以免互相干扰。</li>
-<li><strong>break</strong> 语句只能用在循环体内和 switch 语句体内。</li>
-<li>C语言中，通过函数的调用可以得到零个或者一个返回值。</li>
-<li>不同于Pascal，在C语言中的 <strong>sizeof()</strong> 并不是函数而是一个运算符！</li>
-<li>在C语言中，不论将几维数组传入函数，实际上都是传入数组的头指针。因此，虽然二维数组在函数定义时要指出第二维的大小，在调用时只需要输入数组名（因为此时的数组名即为数组的头指针）。</li>
-<li>取整运算符 <strong>%</strong> 只能用在整数算子之间。</li>
-<li>数组的下标不可以是浮点数类型。</li>
-<li>如果初始化时指定的的元素个数比数组大小少，<strong>剩下的元素都会被初始化为 0</strong>。</li>
-<li>全局变量与局部变量可以同名，范围小的会在 <strong>{}</strong> 所示范围内覆盖范围大的。</li>
-<li>在所有的关系运算符（&gt;=、&gt;、==、!=、&lt;=、&lt;）中，优先级最低的运算符是 <strong>“==、!=”</strong> 。</li>
-<li>关于C语言指针的运算：指针只有加减操作，没有乘除操作。指针可以加常数、减常数；相同类型的指针可以相减，但是不能相加。</li>
-<li>int array[10]; 则该语句定义了一个数组array，其中array是数组名，并不是整型指针。此外，对数组名是不可以用 <strong>array++，array–</strong> 之类的运算的。</li>
-<li>在字符串数组定义时，是可以使用字面量给它初始化的，如 <strong>char str[10] = “string”;</strong> 但是数组定义完成之后就不能那字面量直接赋值了。此外，还应该注意的是 <strong>char str[10] = ‘string’</strong> 形式的初始化是不正确的，即在C语言中要区分 <strong>“”</strong> 和 <strong>‘’</strong> 的区别。当然，如果是指针的话，则定义时与定义后均可以使用字面量给其赋值，当然遗憾是不可以通过下标访问对指针相应位置上的值进行修改。</li>
-<li>区分 <strong>int (*p)[4]</strong> 和 <strong>int *p[4]</strong> ，前者指的是定义了一个指针p，这个指针指向一个有4个元素的数组，后者等价于 <strong>int *(p[4])</strong> ，指的是定义了一个指针数组p，其中包含了4个指针作为元素。</li>
-<li>关于C语言中的格式输入输出：</li>
+<li><p>在PTA上打程序填空题一定不要忘了加上 <strong>“;”</strong> ！不要忘了，不要忘了，不要忘了！重要的事情说三遍！</p>
+</li>
+<li><p>C是大小写敏感的，亦即APH和aph是两个不同的变量。</p>
+</li>
+<li><p>C中常量和变量都有数据类型。</p>
+</li>
+<li><p>C的标识符要求由<strong>数字、字母、下划线</strong>组成，并且数字不可以作为第一个(理论上是这样的，但是实际上 <strong>$</strong> 也可以)。标识符分为关键字、预定义标识符、用户标识符。关键字不可以作为用户标识符，main、printf、scanf、define、If（首字母大写了）均可以用作用户标识符。预定义标识符<strong>可以</strong>作为用户标识符。</p>
+</li>
+<li><p>C编写的程序称为源程序，又称编译单位。读程序都要从main{}入口， 有且仅有一个main函数作为程序的起点。</p>
+</li>
+<li><p>编译预处理不是C的一部分，不占运行时间，不要加分号。</p>
+</li>
+<li><p>#define PI 3.1415926，一定不可以加上分号（预定义的宏，你硬要加上分号也不是不可以，就是会把分号也替换进去，然后就会出错）。</p>
+</li>
+<li><p>C在函数中不可以定义函数，但是可以声明或嵌套调用函数（但是在函数内部声明的函数的作用域只在被声明的函数内）。</p>
+</li>
+<li><p>出现if的地方不一定需要出现else。</p>
+</li>
+<li><p>区分C语言中不同语句的值与副作用，比如赋值语句 <strong>k = 0</strong>，如果理解了这种区别就能搞清楚为什么 <strong>while ( k = 0 ) { ; }</strong> 的循环语句一次也不会执行。</p>
+</li>
+<li><p>检查C语言中的 <strong>if</strong> 语句是否正确时我们要确保覆盖到了每一条分支，然后边界条件最好也要能单独分开来检测。</p>
+</li>
+<li><p>使用嵌套 <strong>if</strong> 语句时，C语言规定 <strong>else</strong> 总是和之前与其最近且不带 <strong>else</strong> 的 <strong>if</strong> 配对。</p>
+</li>
+<li><p>定义时，数组的大小不能是变量。</p>
+</li>
+<li><p>循环体如包括有一个以上的语句，则必须用一对大括号{}括起来，组成复合语句，复合语句在语法上被认为是一条语句。</p>
+</li>
+<li><p>在嵌套循环（多层循环）中, 每一层循环中都不应该改变其他层使用的循环变量的值，以免互相干扰。</p>
+</li>
+<li><p><strong>break</strong> 语句只能用在循环体内和 switch 语句体内。</p>
+</li>
+<li><p>C语言中，通过函数的调用可以得到零个或者一个返回值。</p>
+</li>
+<li><p>不同于Pascal，在C语言中的 <strong>sizeof()</strong> 并不是函数而是一个运算符！</p>
+</li>
+<li><p>在C语言中，不论将几维数组传入函数，实际上都是传入数组的头指针。因此，虽然二维数组在函数定义时要指出第二维的大小，在调用时只需要输入数组名（因为此时的数组名即为数组的头指针）。</p>
+</li>
+<li><p>取整运算符 <strong>%</strong> 只能用在整数算子之间。</p>
+</li>
+<li><p>数组的下标不可以是浮点数类型。</p>
+</li>
+<li><p>如果初始化时指定的的元素个数比数组大小少，<strong>剩下的元素都会被初始化为 0</strong>。</p>
+</li>
+<li><p>全局变量与局部变量可以同名，范围小的会在 <strong>{}</strong> 所示范围内覆盖范围大的。</p>
+</li>
+<li><p>在所有的关系运算符（&gt;=、&gt;、==、!=、&lt;=、&lt;）中，优先级最低的运算符是 <strong>“==、!=”</strong> 。</p>
+</li>
+<li><p>关于C语言指针的运算：指针只有加减操作，没有乘除操作。指针可以加常数、减常数；相同类型的指针可以相减，但是不能相加。</p>
+</li>
+<li><p>int array[10]; 则该语句定义了一个数组array，其中array是数组名，并不是整型指针。此外，对数组名是不可以用 <strong>array++，array–</strong> 之类的运算的。</p>
+</li>
+<li><p>在字符串数组定义时，是可以使用字面量给它初始化的，如 <strong>char str[10] = “string”;</strong> 但是数组定义完成之后就不能那字面量直接赋值了。此外，还应该注意的是 <strong>char str[10] = ‘string’</strong> 形式的初始化是不正确的，即在C语言中要区分 <strong>“”</strong> 和 <strong>‘’</strong> 的区别。当然，如果是指针的话，则定义时与定义后均可以使用字面量给其赋值，当然遗憾是不可以通过下标访问对指针相应位置上的值进行修改。</p>
+</li>
+<li><p>区分 <strong>int (*p)[4]</strong> 和 <strong>int *p[4]</strong> ，前者指的是定义了一个指针p，这个指针指向一个有4个元素的数组，后者等价于 <strong>int *(p[4])</strong> ，指的是定义了一个指针数组p，其中包含了4个指针作为元素。</p>
+</li>
+<li><p>关于C语言中的格式输入输出：</p>
+</li>
 </ol>
 <p><strong>printf:</strong></p>
 <table>
@@ -1191,7 +1836,19 @@
 </tbody></table>
 <p>此外，<strong>*</strong> 符号表示该输入项读入后不赋予相应的变量，即跳过该输入值，例如：<strong>scanf(“%d %*d %d”, &amp;a, &amp;b);</strong> 表示忽略输入的第二个数，把第一个与第三个分别赋给a, b；形如 <strong>%5d</strong> 表示只读入整数的前五位，例如：<strong>scanf(“%4d%4d”, &amp;a, &amp;b)</strong> 表示将输入的数前四位赋给a，之后四位赋给b。</p>
 <p>最后，需要用 <strong>%ld</strong> 和 <strong>%lf</strong> 分别读入长整型和双精度浮点数数据。</p>
-<p>30. </p>
+<ol start="31">
+<li><p>区分 <strong>int *p[4]</strong> 和 <strong>int (*p)[4]</strong>。前者定义的是一个指针数组，这个指针数组有四个元素，其中的每一个元素都是一个指针；后者则定义了一个指向数组的指针<strong>p</strong>，所以不难理解以下程序：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *p[<span class="number">4</span>] = &#123;&amp;a, &amp;b, &amp;c, &amp;d&#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">1</span>][<span class="number">4</span>] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> (*p)[<span class="number">4</span>] = a;</span></pre></td></tr></table></figure>
+</li>
+<li><p>更进一步地，我们知道一维数组的数组名是一个常量指针，那么二维数组的数组名又是什么呢？有一种错误的理解是二维数组的数组名是指针的指针，这种想法的问题在于作为指针的指针时，数组名加减常数的意义就无法定义，因此实际上二维数组的数组名相当于类型和 <strong>int (*p)[4]</strong> 相同的一个常量。另外，数组取下标的优先级极高，因此理解以下程序的输出。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">2</span>][<span class="number">2</span>] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, &#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> (*p)[<span class="number">2</span>] = a;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">"%d"</span>, *p[<span class="number">1</span>]); <span class="comment">//输出为3</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">"%d"</span>, (*p)[<span class="number">1</span>]); <span class="comment">//输出为2</span></span></pre></td></tr></table></figure>
+</li>
+<li><p>理解以下程序中的正确与错误表述：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//三种正确的用法</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> *p = <span class="string">"String"</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> *p; p = <span class="string">"String"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> a[] = &#123;<span class="string">"String"</span>&#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//一种错误的用法，数组的内存位置已经固定，不能再指向字面量</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> a[<span class="number">10</span>]; a = <span class="string">"String"</span>;</span></pre></td></tr></table></figure>
+</li>
+<li><p>理解下述程序的输出，进而理解二维数组的数组名意味着什么：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">int</span> a[<span class="number">2</span>][<span class="number">3</span>] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>&#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d %d"</span>, **(a+<span class="number">1</span>), *(*(a+<span class="number">1</span>) + <span class="number">1</span>));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//最终的结果为4，5</span></span></pre></td></tr></table></figure></li>
+</ol>
 
       
     </div>
