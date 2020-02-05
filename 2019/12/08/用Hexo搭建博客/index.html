@@ -46,12 +46,12 @@
   };
 </script>
 
-  <meta name="description" content="搭建博客啦！ 搭建博客是我忽然产生的想法，大概可以称为心血来潮吗？有可能，所以就搜索资料自己来搭建博客咯！  Hexo简介Hexo是一款基于Node.js的静态博客框架，网页托管在GitHub上，安装使用非常方便。 Hexo的初级搭建 安装Git：到Git官网下载Git，安装好之后可以用Git Bash命令行工具来使用Git。安装好了之后可以通过在Git Bash中的git –version检验是">
+  <meta name="description" content="搭建博客啦！ 搭建博客是我忽然产生的想法，大概可以称为心血来潮吗？有可能，所以就搜索资料自己来搭建博客咯！  Hexo简介Hexo是一款基于Node.js的静态博客框架，网页托管在GitHub上，安装使用非常方便。 Hexo的初级搭建 安装Git：到Git官网下载Git，安装好之后可以用Git Bash命令行工具来使用Git。安装好了之后可以通过在Git Bash中的git —version检验是">
 <meta property="og:type" content="article">
 <meta property="og:title" content="用Hexo搭建博客">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;08&#x2F;%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2&#x2F;index.html">
 <meta property="og:site_name" content="吃完的贝壳">
-<meta property="og:description" content="搭建博客啦！ 搭建博客是我忽然产生的想法，大概可以称为心血来潮吗？有可能，所以就搜索资料自己来搭建博客咯！  Hexo简介Hexo是一款基于Node.js的静态博客框架，网页托管在GitHub上，安装使用非常方便。 Hexo的初级搭建 安装Git：到Git官网下载Git，安装好之后可以用Git Bash命令行工具来使用Git。安装好了之后可以通过在Git Bash中的git –version检验是">
+<meta property="og:description" content="搭建博客啦！ 搭建博客是我忽然产生的想法，大概可以称为心血来潮吗？有可能，所以就搜索资料自己来搭建博客咯！  Hexo简介Hexo是一款基于Node.js的静态博客框架，网页托管在GitHub上，安装使用非常方便。 Hexo的初级搭建 安装Git：到Git官网下载Git，安装好之后可以用Git Bash命令行工具来使用Git。安装好了之后可以通过在Git Bash中的git —version检验是">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-12-10T15:30:37.448Z">
 <meta name="twitter:card" content="summary">
@@ -233,7 +233,7 @@
 </blockquote>
 <h2 id="Hexo简介"><a href="#Hexo简介" class="headerlink" title="Hexo简介"></a>Hexo简介</h2><p>Hexo是一款基于Node.js的静态博客框架，网页托管在GitHub上，安装使用非常方便。</p>
 <h2 id="Hexo的初级搭建"><a href="#Hexo的初级搭建" class="headerlink" title="Hexo的初级搭建"></a>Hexo的初级搭建</h2><ol>
-<li>安装Git：到Git官网下载Git，安装好之后可以用Git Bash命令行工具来使用Git。安装好了之后可以通过在Git Bash中的git –version检验是否安装成功。</li>
+<li>安装Git：到Git官网下载Git，安装好之后可以用Git Bash命令行工具来使用Git。安装好了之后可以通过在Git Bash中的git —version检验是否安装成功。</li>
 <li>安装Node.js：在Node.js官网下载LTS版本，64位msi安装包，安装流程安装。安装好了之后可以通过在命令行中输入node -v和npm -v两条命令检验PATH环境变量是否配置了Node.js。</li>
 <li>安装Hexo：首先，新建一个文件夹来存放自己的博客。然后，进入Git Bash，cd命令进入之前创建的文件夹下，输入下面的两条命令安装Hexo，安装完成之后同样可以在Git Bash中用hexo -v的命令查看是否成功。    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span></pre></td></tr></table></figure></li>
 <li>初始化Hexo：输入以下命令初始化博客。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">hexo init 你的博客的名字</span></pre></td></tr></table></figure></li>
@@ -248,10 +248,11 @@
 <li>将Hexo部署到GitHub：打开你的博客文件夹中的<strong>网站配置文件_config.yml</strong>，拉到最下面，找到<strong>deploy</strong>部分，修改为(注意修改的时候不要忘记冒号 <strong>:</strong> 后面的一个空格)：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">deploy:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    type: git</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    repo: https:&#x2F;&#x2F;github.com&#x2F;你的GitHub用户名&#x2F;你的GitHub用户名.github.io.git</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    branch: master</span></pre></td></tr></table></figure></li>
 <li>安装deploy-git：输入以下的命令安装。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">npm install hexo-developer-git --save</span></pre></td></tr></table></figure></li>
 <li>每一次更新你的博客相当于三个过程：1、清空原有的内容；2、将原有的Markdown文件生成html文件；3、将html文件展示到网页上。可以通过以下三条命令实现。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">hexo clean</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">hexo g</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">hexo d</span></pre></td></tr></table></figure></li>
-<li>部署成功后，在浏览器中输入：<strong>https://你的GitHub用户名.github.io</strong> 就可以访问你的博客网站啦！</li>
+<li>部署成功后，在浏览器中输入：<strong><a href="https://你的GitHub用户名.github.io" target="_blank" rel="noopener">https://你的GitHub用户名.github.io</a></strong> 就可以访问你的博客网站啦！</li>
 <li>更改一些基本的配置：打开你的博客文件夹中的<strong>网站配置文件_config.yml</strong>，简单介绍以下几个配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">网站 - Site</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    title：网站标题</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    subtitle：网站副标题</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    description：网站的描述</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    author：博客作者</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    language：网站使用的语言，中文为zh-CN</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    timezone：网站时区。默认使用电脑的时区</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">主题 - theme</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    theme参数决定了你使用的主题</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    可以在Hexo网站上下载自己喜欢的主题，放在theme文件夹下，并将名字修改为</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">个别文件变量 - Font matter</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    个别文件变量是指Markdown文件最上方以---分隔的区域，这些区域在新建Markdown文件时会自动被加上。</span></pre></td></tr></table></figure></li>
 <li>以下再介绍几种可以再Font matter中预先定义的参数（注意更改参数后一定要去网站配置文件把对应项的<strong>注释解除</strong>掉哦！）：</li>
 </ol>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -259,7 +260,8 @@
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>layout</td>
 <td>布局</td>
 </tr>
@@ -291,7 +293,9 @@
 <td>permalink</td>
 <td>覆盖文章默认网址</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>到这里就搭建完成咯！</p>
 <p>开不开心嘞！</p>
 
@@ -486,6 +490,8 @@
 
 
 
+
+  
 
   
 
