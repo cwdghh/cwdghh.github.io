@@ -170,6 +170,119 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/08/CS231N-Assignment1-Softmax/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="陈蔚">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吃完的贝壳">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/08/CS231N-Assignment1-Softmax/" class="post-title-link" itemprop="url">CS231N-Assignment1-Softmax</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-08 12:44:49 / 修改时间：15:20:23" itemprop="dateCreated datePublished" datetime="2020-02-08T12:44:49+08:00">2020-02-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B/CS231N/" itemprop="url" rel="index">
+                    <span itemprop="name">CS231N</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="CS231N-Softmax"><a href="#CS231N-Softmax" class="headerlink" title="CS231N-Softmax"></a>CS231N-Softmax</h1><blockquote>
+<p>Softmax是CS231N中Assignment1的第三个习题。顾名思义，softmax由两个单词——soft和max——组成，即可以理解为一种max函数的变体。</p>
+<p>本次练习的重点在于了解softmax的定义和基本使用。</p>
+</blockquote>
+<h2 id="Softmax的定义与损失函数"><a href="#Softmax的定义与损失函数" class="headerlink" title="Softmax的定义与损失函数"></a>Softmax的定义与损失函数</h2><p>假设有一个数组$V=(v_1,v_2,\dots,v_n)$，并用$v_i$表示数组$V$中的第i个元素的值，从而这个元素对应的softmax值为：</p>
+<script type="math/tex; mode=display">S_i=\frac{e^{v_i}}{\displaystyle\sum_{k}{e^{v_k}}}</script><p>即为该元素的指数与所有元素的指数和的比值。这样，显见某数组所有元素的softmax值的和为1，即可以理解为一种概率的变体。</p>
+<p>在此基础上，我们进一步定义softmax函数下的损失函数，假设一共使用了$m$个训练样本，其中第$i$个训练样本的对$i$个类别的得分分别为$(v_{i,1},v_{i,2},\dots,v_{i,n})$，其对第$j$个类别的softmax值为$S_{i, j}$，其标签类别为$y_i$，（特别要注意上下定义中符号的区别）：</p>
+<script type="math/tex; mode=display">Loss=-\displaystyle\sum_{i=1}^{m}{1(j=y_i)ln(S_{i, j})}</script><p>有了以上基础之后，我们要进行的是一个难点：梯度的计算。</p>
+<p>这里对于第$i$个训练样本要计算每一个$v_{i,j}$的梯度值，需要分两种情况$j=y_i$和$j\not=y_i$来进行讨论，首先是第一种情况：</p>
+<script type="math/tex; mode=display">\begin{aligned}
+\frac{\partial Loss}{\partial v_{i,j}}&=-\left[ln\left(\frac{e^{v_{i,j}}}{\displaystyle\sum_{k}{e^{v_{i,k}}}}\right)\right]'=-[v_{i,j}+ln(\displaystyle\sum_{k}{e^{v_{i,k}}})]'\\
+&=-1+\frac{1}{\displaystyle\sum_{k}{e^{v_{i,k}}}} \times e^{v_{i,j}}\\
+&=S_{i,j}-1
+\end{aligned}</script><p>然后是第二种情况类似可以求得梯度为：</p>
+<script type="math/tex; mode=display">
+\frac{\partial Loss}{\partial v_{i,j}}=S_{i,j}</script><h2 id="具体的代码实现"><a href="#具体的代码实现" class="headerlink" title="具体的代码实现"></a>具体的代码实现</h2><p>有了上述的介绍与偏微分的计算，在熟悉numpy操作的基础上，代码其实已经是很简单的事情了。同样地，本练习要求用循环与矢量化两种形式计算softmax以比较两种运算方式的速度差异。唯一与上述有所不同的地方在于上述的得分需要用一个affine层计算的出，所以还需要用链式法则计算出最后需要的输出。</p>
+<h3 id="softmax-py"><a href="#softmax-py" class="headerlink" title="softmax.py"></a>softmax.py</h3><p>照例首先是已经给出的调用部分：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> builtins <span class="keyword">import</span> range</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> shuffle</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> past.builtins <span class="keyword">import</span> xrange</span></pre></td></tr></table></figure>
+<p>然后指出函数要求的输入与输出：</p>
+<p>Inputs:</p>
+<ul>
+<li>W: A numpy array of shape (D, C) containing weights.</li>
+<li>X: A numpy array of shape (N, D) containing a minibatch of data.</li>
+<li>y: A numpy array of shape (N, ) containing training labels; y[i] = c means that X[i, :] has label c, where 0 &lt;= c &lt;= C.</li>
+<li>reg: (float) regularization strength.</li>
+</ul>
+<p>Return:</p>
+<ul>
+<li>loss: a single float.</li>
+<li>dW: a numpy array of shape (D, C) containing the gradients with respect to the weights W.</li>
+</ul>
+<p>接下来完成要求的第一个方法.softmax_loss_naive():</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">softmax_loss_naive</span><span class="params">(W, X, y, reg)</span>:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    loss = <span class="number">0.0</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    dW = np.zeros_like(W) <span class="comment"># initialize the result</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    num_train = X.shape[<span class="number">0</span>] <span class="comment"># number of training examples</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    num_classes = W.shape[<span class="number">1</span>] <span class="comment"># number of classes</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(C):</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        scores = X[i, :].dot(W)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">        exp = np.exp(scores)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        softmax = exp/np.sum(exp)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">        loss += -np.log(softmax[y[i]])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(num_classes):</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">            dW[:, j] += X[i, :].T*softmax[j]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">        dW[:, y[i]] -= X[i, :].T</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">    loss = loss/num_train + <span class="number">0.5</span>*reg*np.sum(W*W)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">    dW = dW/num_train + reg*W</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> loss, dW</span></pre></td></tr></table></figure>
+<p>确认过正确性之后，我们可以用矢量化的方式完成同样的计算:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">softmax_loss_vectorized</span><span class="params">(W, X, y, reg)</span>:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    loss = <span class="number">0.0</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    dW = np.zeros_like(W)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    num_train = X.shape[<span class="number">0</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    scores = X.dot(W)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    softmax = np.exp(scores)/np.sum(np.exp(scores), axis=<span class="number">1</span>, keepdims=<span class="literal">True</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    loss = -np.sum(np.log(softmax[np.arange(num_train), y]))/num_train + <span class="number">0.5</span>*reg*np.sum(W*W)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    softmax[np.arange(num_train), y] -= <span class="number">1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    dW = np.dot(X.T, softmax)/num_train + reg*W</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> loss, dW</span></pre></td></tr></table></figure>
+<h3 id="softmax-ipynb"><a href="#softmax-ipynb" class="headerlink" title="softmax.ipynb"></a>softmax.ipynb</h3><p>最后挑选合适的learning_rate和regularization_strength即可，这里用到了numpy的一个随机数函数np.random.uniform()，这里为了节省时间，每个模型只训练了100遍，当发现最佳的learing_rate和regularization_strength后，可以增加迭代的次数，最后可以得到一个比较好的可视结果。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> cs231n.classifiers <span class="keyword">import</span> Softmax</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">results = &#123;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">best_val = <span class="number">-1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">best_softmax = <span class="literal">None</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    lr = <span class="number">10</span>**np.random.uniform(<span class="number">-5</span>, <span class="number">-6</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    reg = <span class="number">10</span>**np.random.uniform(<span class="number">4</span>, <span class="number">5</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    softmax = Softmax()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    softmax.train(X_train, y_train, lr, reg, <span class="number">100</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    y_train_pred = softmax.predict(X_train)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    tra_accu = np.mean( y_train_pred==y_train )</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">    y_val_pred = softmax.predict(X_val)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">    val_accu = np.mean( y_val_pred==y_val )</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">    results[(lr, reg)] = (tra_accu, val_accu)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span> val_accu&gt;best_val:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">        best_val = val_accu</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">        best_softmax = softmax</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> lr, reg <span class="keyword">in</span> sorted(results):</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">    train_accuracy, val_accuracy = results[(lr, reg)]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">    print(<span class="string">'lr %e reg %e train accuracy: %f val accuracy: %f'</span> % (</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">                lr, reg, train_accuracy, val_accuracy))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">    </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">print(<span class="string">'best validation accuracy achieved during cross-validation: %f'</span> % best_val)</span></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>总的来讲，这次作业的难度不是那么大，唯一需要注意的地方就是梯度的求法与链式法则的运用。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/08/C%E8%AF%AD%E8%A8%80%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7%E8%A1%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -929,7 +1042,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/21/CS231N-Assigment1-KNN/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/21/CS231N-Assignment1-KNN/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -943,7 +1056,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/12/21/CS231N-Assigment1-KNN/" class="post-title-link" itemprop="url">CS231N-Assigment1-KNN</a>
+            <a href="/2019/12/21/CS231N-Assignment1-KNN/" class="post-title-link" itemprop="url">CS231N-Assigment1-KNN</a>
         </h1>
 
         <div class="post-meta">
@@ -960,7 +1073,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-05 17:33:08" itemprop="dateModified" datetime="2020-02-05T17:33:08+08:00">2020-02-05</time>
+                <time title="修改时间：2020-02-08 14:17:22" itemprop="dateModified" datetime="2020-02-08T14:17:22+08:00">2020-02-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -992,7 +1105,7 @@
 
       
           <h1 id="CS231N-KNN"><a href="#CS231N-KNN" class="headerlink" title="CS231N-KNN"></a>CS231N-KNN</h1><blockquote>
-<p>KNN是CS231N中的第一个习题，是K_nearest_neighbours的简写。从理解上来说，KNN算法实际上就是简单地分别计算你的测试用例与各个训练用例之间的距离（范数？），从中取出距离最短的k个测试用例并依据他们的标签决定你的测试用例的标签。以下给出KNN算法的具体实现。</p>
+<p>KNN是CS231N中Assignment1的第一个习题，是K_nearest_neighbours的简写。从理解上来说，KNN算法实际上就是简单地分别计算你的测试用例与各个训练用例之间的距离（范数？），从中取出距离最短的k个测试用例并依据他们的标签决定你的测试用例的标签。以下给出KNN算法的具体实现。</p>
 <p>本次练习比较有趣的地方在于用循环嵌套、单层循环与numpy的broadcast机制分别实现距离的计算。 </p>
 </blockquote>
 <h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><ol>
@@ -1011,7 +1124,7 @@
 <li>dists: A numpy array of shape (num_test, num_train) where dists[i, j] is the Euclidean distance between the $i^{th}$ test point and the $j^{th}$ training point.</li>
 </ul>
 <p>完成方法.compute_two_loops():</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compute_two_loops</span><span class="params">(self, X)</span>:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    num_test = X.shape[<span class="number">0</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    num_train = self.X_train.shape[<span class="number">0</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    dists = np.zeros((num_test, num_train))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(num_test):</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(num_train):</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">            dist[i, j] = np.sum((X[i, :] - X_train[j, :])**<span class="number">2</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> dists</span></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compute_two_loops</span><span class="params">(self, X)</span>:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    num_test = X.shape[<span class="number">0</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    num_train = self.X_train.shape[<span class="number">0</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    dists = np.zeros((num_test, num_train)) <span class="comment"># initialize the result</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(num_test):</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(num_train):</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">            dist[i, j] = np.sum((X[i, :] - X_train[j, :])**<span class="number">2</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> dists</span></pre></td></tr></table></figure>
 <p>之后我们需要预测测试用例的标签，先给出输入输出：</p>
 <p>Inputs:</p>
 <ul>
@@ -1023,13 +1136,13 @@
 <li>y_pred: A numpy array of shape(num_test, ) containing predicted labels for the test data, where y[i] is the predicted label for the test point X[i].</li>
 </ul>
 <p>完成方法.predict_labels():</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">predict_labels</span><span class="params">(self, dists, k=<span class="number">1</span>)</span>:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    num_test = dists.shape[<span class="number">0</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    y_pred = np.zeros(num_test)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(num_test):</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        closest_y = [] <span class="comment"># A list of length k storing the labels of the k nearest neighbors to the ith test point.</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        closest_y = self.y_train[np.argsort(dists[i, :])[:k]]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">        y_pred[i] = np.argmax(np.bincount(closest_y))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> y_pred</span></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">predict_labels</span><span class="params">(self, dists, k=<span class="number">1</span>)</span>:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    num_test = dists.shape[<span class="number">0</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    y_pred = np.zeros(num_test) <span class="comment"># initialize the result</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(num_test):</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">        closest_y = [] <span class="comment"># A list of length k storing the labels of the k nearest neighbors to the ith test point.</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        closest_y = self.y_train[np.argsort(dists[i, :])[:k]]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        y_pred[i] = np.argmax(np.bincount(closest_y))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> y_pred</span></pre></td></tr></table></figure>
 <p>上述过程我实在是懒得写循环，所以直接用了numpy的内置函数，这些函数的详情可以见我的另一篇博文《Numpy有关知识》，这里不再赘述。</p>
 <p>做完上述步骤后，我们可以在CIFAR-10数据集上测试，得到接近27%的准确率，总归是比随机的10%要高一点的。</p>
 <p>以下完成单层循环计算dists的方法.compute_distances_one_loop():</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compute_distances_one_loop</span><span class="params">(self, X)</span>:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    num_test = X.shape[<span class="number">0</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    num_train = self.X_train.shape[<span class="number">0</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    dists = np.zeros((num_test, num_train))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(num_test):</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        dists[i, :] = np.sqrt(np.sum(np.square((self.X_train - X[i, :])), axis=<span class="number">1</span>))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> dists</span></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compute_distances_one_loop</span><span class="params">(self, X)</span>:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    num_test = X.shape[<span class="number">0</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    num_train = self.X_train.shape[<span class="number">0</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    dists = np.zeros((num_test, num_train))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(num_test):</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        dists[i, :] = np.sqrt(np.sum(np.square((self.X_train - X[i, :])), axis=<span class="number">1</span>))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> dists</span></pre></td></tr></table></figure>
 <p>最后是不使用循环的方法，这里需要用到公式$\sqrt{\sum(a-b)^2} = \sqrt{\sum(a^2+b^2-2ab)}$，即我们要将把L2范数用展开的方式计算，完成方法.compute_distance_no_loop()：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compute_distance_no_loop</span><span class="params">()</span>:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    num_test = X.shape[<span class="number">0</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    num_train = self.X_train.shape[<span class="number">0</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    dists = np.zeros((num_test, num_train))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    a_square = np.sum(np.square(X), axis=<span class="number">1</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    b_square = np.sum(np.square(self.X_train), axis=<span class="number">1</span>, keepdims=<span class="literal">True</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    ab = np.dot(X, self.X_train.T)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    dists = a_square + b_square - <span class="number">2</span>*ab</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    dists = np.sqrt(dists)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> dists</span></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compute_distance_no_loop</span><span class="params">()</span>:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    num_test = X.shape[<span class="number">0</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    num_train = self.X_train.shape[<span class="number">0</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    dists = np.zeros((num_test, num_train))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    a_square = np.sum(np.square(X), axis=<span class="number">1</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    b_square = np.sum(np.square(self.X_train), axis=<span class="number">1</span>, keepdims=<span class="literal">True</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    ab = np.dot(X, self.X_train.T)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    dists = a_square + b_square - <span class="number">2</span>*ab</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    dists = np.sqrt(dists)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> dists</span></pre></td></tr></table></figure>
 <p>运行后，我们发现用numpy的广播机制快得真的不是一点两点。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过本次作业，我们熟悉了几个numpy中的常用函数，这是比较重要的。因为就KNN算法本身而言，它还是停留在直观层面上的一种原始算法，在真正的工程中很少会用到。更重要的一点是，我们希望的结果是在训练的时候可以多花一点时间以得到较好的结果，而在预测的时候要较快地得出结果，然而KNN算法的表现正好相反。</p>
 
@@ -1629,271 +1742,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/08/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="陈蔚">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="吃完的贝壳">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/08/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">C语言学习笔记</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-12-08 10:30:57" itemprop="dateCreated datePublished" datetime="2019-12-08T10:30:57+08:00">2019-12-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-05 12:20:27" itemprop="dateModified" datetime="2020-02-05T12:20:27+08:00">2020-02-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index">
-                    <span itemprop="name">编程</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%BC%96%E7%A8%8B/C%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index">
-                    <span itemprop="name">C语言</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="C语言学习笔记"><a href="#C语言学习笔记" class="headerlink" title="C语言学习笔记"></a>C语言学习笔记</h1><blockquote>
-<p>笔者今年学习C语言，其实还是很兴奋的。作为一个几乎零基础的学习者，笔者发现自己的C语言基础简直薄弱到“令人发指”的地步，因此打算写这篇文章来记录一下自己经常忘记的知识点。</p>
-</blockquote>
-<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><ol>
-<li><p>在PTA上打程序填空题一定不要忘了加上 <strong>“;”</strong> ！不要忘了，不要忘了，不要忘了！重要的事情说三遍！</p>
-</li>
-<li><p>C是大小写敏感的，亦即APH和aph是两个不同的变量。</p>
-</li>
-<li>C中常量和变量都有数据类型。</li>
-<li>C的标识符要求由<strong>数字、字母、下划线</strong>组成，并且数字不可以作为第一个(理论上是这样的，但是实际上 <strong>$</strong> 也可以)。标识符分为关键字、预定义标识符、用户标识符。关键字不可以作为用户标识符，main、printf、scanf、define、If（首字母大写了）均可以用作用户标识符。预定义标识符<strong>可以</strong>作为用户标识符。</li>
-<li>C编写的程序称为源程序，又称编译单位。读程序都要从main{}入口， 有且仅有一个main函数作为程序的起点。</li>
-<li>编译预处理不是C的一部分，不占运行时间，不要加分号。</li>
-<li><h1 id="define-PI-3-1415926，一定不可以加上分号（预定义的宏，你硬要加上分号也不是不可以，就是会把分号也替换进去，然后就会出错）。"><a href="#define-PI-3-1415926，一定不可以加上分号（预定义的宏，你硬要加上分号也不是不可以，就是会把分号也替换进去，然后就会出错）。" class="headerlink" title="define PI 3.1415926，一定不可以加上分号（预定义的宏，你硬要加上分号也不是不可以，就是会把分号也替换进去，然后就会出错）。"></a>define PI 3.1415926，一定不可以加上分号（预定义的宏，你硬要加上分号也不是不可以，就是会把分号也替换进去，然后就会出错）。</h1></li>
-<li>C在函数中不可以定义函数，但是可以声明或嵌套调用函数（但是在函数内部声明的函数的作用域只在被声明的函数内）。</li>
-<li>出现if的地方不一定需要出现else。</li>
-<li>区分C语言中不同语句的值与副作用，比如赋值语句 <strong>k = 0</strong>，如果理解了这种区别就能搞清楚为什么 <strong>while ( k = 0 ) { ; }</strong> 的循环语句一次也不会执行。</li>
-<li>检查C语言中的 <strong>if</strong> 语句是否正确时我们要确保覆盖到了每一条分支，然后边界条件最好也要能单独分开来检测。</li>
-<li>使用嵌套 <strong>if</strong> 语句时，C语言规定 <strong>else</strong> 总是和之前与其最近且不带 <strong>else</strong> 的 <strong>if</strong> 配对。</li>
-<li>定义时，数组的大小不能是变量。</li>
-<li>循环体如包括有一个以上的语句，则必须用一对大括号{}括起来，组成复合语句，复合语句在语法上被认为是一条语句。</li>
-<li>在嵌套循环（多层循环）中, 每一层循环中都不应该改变其他层使用的循环变量的值，以免互相干扰。</li>
-<li><strong>break</strong> 语句只能用在循环体内和 switch 语句体内。</li>
-<li>C语言中，通过函数的调用可以得到零个或者一个返回值。</li>
-<li>不同于Pascal，在C语言中的 <strong>sizeof()</strong> 并不是函数而是一个运算符！</li>
-<li>在C语言中，不论将几维数组传入函数，实际上都是传入数组的头指针。因此，虽然二维数组在函数定义时要指出第二维的大小，在调用时只需要输入数组名（因为此时的数组名即为数组的头指针）。</li>
-<li>取整运算符 <strong>%</strong> 只能用在整数算子之间。</li>
-<li>数组的下标不可以是浮点数类型。</li>
-<li>如果初始化时指定的的元素个数比数组大小少，<strong>剩下的元素都会被初始化为 0</strong>。</li>
-<li>全局变量与局部变量可以同名，范围小的会在 <strong>{}</strong> 所示范围内覆盖范围大的。</li>
-<li>在所有的关系运算符（&gt;=、&gt;、==、!=、&lt;=、&lt;）中，优先级最低的运算符是 <strong>“==、!=”</strong> 。</li>
-<li>关于C语言指针的运算：指针只有加减操作，没有乘除操作。指针可以加常数、减常数；相同类型的指针可以相减，但是不能相加。</li>
-<li>int array[10]; 则该语句定义了一个数组array，其中array是数组名，并不是整型指针。此外，对数组名是不可以用 <strong>array++，array—</strong> 之类的运算的。</li>
-<li>在字符串数组定义时，是可以使用字面量给它初始化的，如 <strong>char str[10] = “string”;</strong> 但是数组定义完成之后就不能那字面量直接赋值了。此外，还应该注意的是 <strong>char str[10] = ‘string’</strong> 形式的初始化是不正确的，即在C语言中要区分 <strong>“”</strong> 和 <strong>‘’</strong> 的区别。当然，如果是指针的话，则定义时与定义后均可以使用字面量给其赋值，当然遗憾是不可以通过下标访问对指针相应位置上的值进行修改。</li>
-<li>区分 <strong>int (*p)[4]</strong> 和 <strong>int *p[4]</strong> ，前者指的是定义了一个指针p，这个指针指向一个有4个元素的数组，后者等价于 <strong>int *(p[4])</strong> ，指的是定义了一个指针数组p，其中包含了4个指针作为元素。</li>
-<li>关于C语言中的格式输入输出：</li>
-</ol>
-<p><strong>printf:</strong></p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">格式字符</th>
-<th style="text-align:left">意义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">d</td>
-<td style="text-align:left">以十进制形式输出带符号的整数（正数不输出符号）</td>
-</tr>
-<tr>
-<td style="text-align:center">0</td>
-<td style="text-align:left">以八进制形式输出无符号的整数（不输出前缀0）</td>
-</tr>
-<tr>
-<td style="text-align:center">x, X</td>
-<td style="text-align:left">以十六进制形式输出无符号整数（不输出前缀0）</td>
-</tr>
-<tr>
-<td style="text-align:center">u</td>
-<td style="text-align:left">以十进制形式输出无符号整数</td>
-</tr>
-<tr>
-<td style="text-align:center">f</td>
-<td style="text-align:left">以小数形式输出单、双精度实数</td>
-</tr>
-<tr>
-<td style="text-align:center">e, E</td>
-<td style="text-align:left">以指数形式输出单、双精度实数</td>
-</tr>
-<tr>
-<td style="text-align:center">g, G</td>
-<td style="text-align:left">以 %f 或 %e 中较短的输出宽度输出单、双精度实数，注意这个时候输出的浮点数后置零不输出</td>
-</tr>
-<tr>
-<td style="text-align:center">c</td>
-<td style="text-align:left">输出单个字符</td>
-</tr>
-<tr>
-<td style="text-align:center">s</td>
-<td style="text-align:left">输出字符串</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">标志字符</th>
-<th style="text-align:left">意义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">-</td>
-<td style="text-align:left">结果左对齐，右边用空格补齐，不加默认右对齐</td>
-</tr>
-<tr>
-<td style="text-align:center">+</td>
-<td style="text-align:left">输出符号（正号或者符号）</td>
-</tr>
-<tr>
-<td style="text-align:center">空格</td>
-<td style="text-align:left">输出值为正时，前置空格；输出值为负时，前置负号</td>
-</tr>
-<tr>
-<td style="text-align:center">#</td>
-<td style="text-align:left">对于八进制数，输出时前缀0；对于十六进制数，x类前缀0x ，X类前缀0X</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>此外，输出的最小宽度用形如 <strong>%2d</strong> 表示输出占两个格子；形如 <strong>%02d</strong> 表示输出占两个空格，不够的位数用0补齐；形如 <strong>%.2f</strong> 表示输出小数点后两位的浮点数；形如 <strong>%.2s</strong> 表示输出两个字符，截去超过的部分。</p>
-<p>最后，还可以在<strong>整数类型</strong>的格式字符前缀 <strong>h</strong> 或 <strong>l</strong> 分别表示输出短整型和长整型。</p>
-<p><strong>scanf:</strong></p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">格式字符</th>
-<th style="text-align:left">意义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">d</td>
-<td style="text-align:left">输入十进制整数</td>
-</tr>
-<tr>
-<td style="text-align:center">o</td>
-<td style="text-align:left">输入八进制整数</td>
-</tr>
-<tr>
-<td style="text-align:center">x</td>
-<td style="text-align:left">输入十六进制整数</td>
-</tr>
-<tr>
-<td style="text-align:center">u</td>
-<td style="text-align:left">输入无符号的十进制整数</td>
-</tr>
-<tr>
-<td style="text-align:center">f, e</td>
-<td style="text-align:left">输入实型数（用小数形式或指数形式）</td>
-</tr>
-<tr>
-<td style="text-align:center">c</td>
-<td style="text-align:left">输入单个字符</td>
-</tr>
-<tr>
-<td style="text-align:center">s</td>
-<td style="text-align:left">输入字符串（遇到空格、换行、制表符等即停止读入）</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>此外，<strong>*</strong> 符号表示该输入项读入后不赋予相应的变量，即跳过该输入值，例如：<strong>scanf(“%d %*d %d”, &amp;a, &amp;b);</strong> 表示忽略输入的第二个数，把第一个与第三个分别赋给a, b；形如 <strong>%5d</strong> 表示只读入整数的前五位，例如：<strong>scanf(“%4d%4d”, &amp;a, &amp;b)</strong> 表示将输入的数前四位赋给a，之后四位赋给b。</p>
-<p>最后，需要用 <strong>%ld</strong> 和 <strong>%lf</strong> 分别读入长整型和双精度浮点数数据。</p>
-<ol>
-<li><p>区分 <strong>int *p[4]</strong> 和 <strong>int (*p)[4]</strong>。前者定义的是一个指针数组，这个指针数组有四个元素，其中的每一个元素都是一个指针；后者则定义了一个指向数组的指针<strong>p</strong>，所以不难理解以下程序：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *p[<span class="number">4</span>] = &#123;&amp;a, &amp;b, &amp;c, &amp;d&#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">1</span>][<span class="number">4</span>] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> (*p)[<span class="number">4</span>] = a;</span></pre></td></tr></table></figure>
-</li>
-<li><p>更进一步地，我们知道一维数组的数组名是一个地址常量，那么二维数组的数组名又是什么呢？有一种错误的理解是二维数组的数组名是指针的指针（即二维指针），这种想法的问题在于作为指针的指针时，数组名加减常数的意义就无法定义，因此实际上二维数组的数组名相当于类型和 <strong>int (*p)[4]</strong> 相同的一个常量。另外，数组取下标的优先级极高，因此理解以下程序的输出。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">2</span>][<span class="number">2</span>] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, &#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> (*p)[<span class="number">2</span>] = a;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">"%d"</span>, *p[<span class="number">1</span>]); <span class="comment">// 输出为3</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">"%d"</span>, (*p)[<span class="number">1</span>]); <span class="comment">// 输出为2</span></span></pre></td></tr></table></figure>
-</li>
-<li><p>理解以下程序中的正确与错误表述：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 三种正确的用法</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> *p = <span class="string">"String"</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> *p; p = <span class="string">"String"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> a[] = &#123;<span class="string">"String"</span>&#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 一种错误的用法，数组的内存位置已经固定，不能再指向字面量</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> a[<span class="number">10</span>]; a = <span class="string">"String"</span>;</span></pre></td></tr></table></figure>
-</li>
-<li><p>理解下述程序的输出，进而理解二维数组的数组名意味着什么：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">int</span> a[<span class="number">2</span>][<span class="number">3</span>] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>&#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d %d"</span>, **(a+<span class="number">1</span>), *(*(a+<span class="number">1</span>) + <span class="number">1</span>));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 最终的结果为4，5</span></span></pre></td></tr></table></figure>
-</li>
-<li><p>转义字符，除了一般的外还可以表示八进制和十六进制的整数，如八进制 <strong>‘\12’</strong> 和十六进制 <strong>‘\x12’</strong>，注意以上的单引号不能少并且十六进制的x只能是小写。此外，八进制的表示方法还有在普通的数前缀零，如十进制下的15可以写成017。</p>
-</li>
-<li><p>C语言是用非零表示逻辑为真，零表示逻辑为假。</p>
-</li>
-<li>C语言逻辑判断时要注意短路现象！</li>
-<li>函数是具有一定功能的程序块，是C语言的基本组成单位。函数名缺省返回值类型默认为 <strong>int</strong>，注意区分 <strong>f(void)</strong> 和 <strong>f()</strong> 前者指函数没有参数，后者指函数可以有任意数量的参数，不过类型默认为int。</li>
-<li>因为单目运算符是自右向左结合的，因此 <strong>*p++</strong> 和 <strong>*p++</strong> 的含义是不同的。</li>
-<li>malloc函数的返回值类型是 <strong>void *</strong> ！</li>
-<li>C语言的头文件不一定要以 <strong>.h</strong> 结尾！</li>
-<li>qsort函数：<strong>void qsort(void *base, size_t nitems, size_t size, int (*compar)(const void *, const void*));</strong> 。其中，<br>base— 指向要排序的数组的第一个元素的指针。<br>nitems— 由 base 指向的数组中元素的个数。<br>size— 数组中每个元素的大小，以字节为单位。<br>compar— 用来比较两个元素的函数，即函数指针（回调函数）。其中返回值小于零时，前一个元素排在后一个元素之前。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">qsort</span><span class="params">(<span class="keyword">void</span> *base, <span class="keyword">size_t</span> nitems, <span class="keyword">size_t</span> <span class="built_in">size</span>, <span class="keyword">int</span> (*compare)(<span class="keyword">const</span> <span class="keyword">void</span> *, <span class="keyword">const</span> <span class="keyword">void</span> *))</span></span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">compare</span><span class="params">(<span class="keyword">const</span> <span class="keyword">void</span> *a, <span class="keyword">const</span> <span class="keyword">void</span> *b)</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> *(<span class="keyword">int</span> *)a - *(<span class="keyword">int</span> *)b;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">int</span> a[<span class="number">5</span>] = &#123;<span class="number">0</span>&#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;a[i]);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    qsort(a, <span class="number">5</span>, <span class="keyword">sizeof</span>(<span class="keyword">int</span>), compare);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d "</span>, a[i]);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure></li>
-<li>了解 <strong>string.h</strong> 中的字符串函数：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">size_t</span>  <span class="built_in">strlen</span>( <span class="keyword">const</span> <span class="keyword">char</span> *str); </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回str的字符串长度（不包括结尾的0）</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strcpy</span><span class="params">(<span class="keyword">char</span> *<span class="keyword">restrict</span> dst, <span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> src)</span></span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 把src的字符串拷贝到dst，restrict表示src与dst不重叠，返回dst</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strcat</span><span class="params">(<span class="keyword">char</span> *<span class="keyword">restrict</span> s1, <span class="keyword">char</span> *<span class="keyword">restrict</span> s2)</span></span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 把s2拷贝到s1后接成一个长的字符串，返回s1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">strcmp</span> <span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *str1, <span class="keyword">const</span> <span class="keyword">char</span> *str2)</span></span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 比较两个字符串，如果相等则返回0，否则返回第一位不相等的Ascii码相减</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strchr</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *str, <span class="keyword">char</span> c)</span></span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 检索字符串str中首次出现c的位置</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回首次出现c的位置的指针，如果str中不存在c则返回NULL</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strstr</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *str, <span class="keyword">const</span> <span class="keyword">char</span> *substr)</span></span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 检索子串substr在字符串str中首次出现的地址，</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果没有检索到则返回NULL</span></span></pre></td></tr></table></figure></li>
-<li>接下来要了解的几个重点：1、字符串函数的用法；3、全局变量、本地变量与静态本地变量；</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1964,7 +1812,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
