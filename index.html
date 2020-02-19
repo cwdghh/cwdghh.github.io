@@ -170,6 +170,127 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/19/CS231N-Assignment1-Two_Layer_Net/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="陈蔚">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吃完的贝壳">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/19/CS231N-Assignment1-Two_Layer_Net/" class="post-title-link" itemprop="url">CS231N-Assignment1-Two_Layer_Net</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-19 13:11:44 / 修改时间：15:26:32" itemprop="dateCreated datePublished" datetime="2020-02-19T13:11:44+08:00">2020-02-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B/CS231N/" itemprop="url" rel="index">
+                    <span itemprop="name">CS231N</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="CS231N-Two-Layer-Net"><a href="#CS231N-Two-Layer-Net" class="headerlink" title="CS231N-Two_Layer_Net"></a>CS231N-Two_Layer_Net</h1><blockquote>
+<p>Two_Layer_Net是CS231N中Assignment1的第四个习题。在这个习题中，我们需要实现一个两层全连接层的神经网络来完成分类任务，并在CIFAR-10数据集上完成测试。</p>
+<p>本次练习的重点在于对简单的神经网络有一个初步的了解，在之后的练习中我们会更详细地操作。</p>
+</blockquote>
+<h2 id="具体的代码实现。"><a href="#具体的代码实现。" class="headerlink" title="具体的代码实现。"></a>具体的代码实现。</h2><p>这里神经网络的数学原理并没有之前的Softmax或SVM那么复杂就不再赘述，而代码用简单的矩阵乘法也容易。在接下来的代码中，我们希望做一个两层的全连接神经网络。这个网络有$N$个训练数据，每个训练数据的维度为$D$，然后有两个维度为$H$的全连接层，最后是要实现$C$个的分类。</p>
+<p>我们训练这么网络时使用之前写过的Softmax作为损失函数，并用L2范数对权重矩阵进行正则化。这个神经网络在每个全连接层后加上一个非线性的ReLU层（仅使用线性层得到的结果也是线性的，因而表达能力不足；同时，这也是模拟人类神经元之间信号传递的形式——达到阈值才可激活）。</p>
+<p>概括来讲我们的神经网络结构如下：</p>
+<p><strong>input - fully connected layer - ReLU - fully connected layer - softmax</strong></p>
+<p>我们直接上代码：</p>
+<h3 id="neural-net-py"><a href="#neural-net-py" class="headerlink" title="neural_net.py"></a>neural_net.py</h3><p>在类TwoLayerNet中，我们先给出定义新的实例时需要的三个输入：</p>
+<p>Input:</p>
+<ul>
+<li>input_size: The dimension D of the input data.</li>
+<li>hidden_size: The number of neurons H in the hidden layer.</li>
+<li>output_size: The number of classes C.</li>
+</ul>
+<p>已经给出的代码帮我们完成了初始化的操作，为了防止回归无法进行，我们将权重矩阵初始化为限定大小的随机数；然后简单起见，我们将偏差（bias）项全部初始化为零。</p>
+<p>接下来是作业的第一个部分，先给出输入输出：</p>
+<p>Inputs:</p>
+<ul>
+<li>X: Input data of shape (N, D). Each X[i] is a training sample.</li>
+<li>y: Vector of training labels. y[i] is the label for X[i]. This parameter is optional; if it isn’t passed then we only return scores, and if it’s passed then we instead return the loss and gradients.</li>
+<li>reg: Regularization strength.</li>
+</ul>
+<p>我们要实现方法.loss():</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loss</span><span class="params">(self, X, y=None, reg=<span class="number">0.0</span>)</span>:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="comment"># 首先我们从self中取出权重矩阵和偏差项</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    W1, b1 = self.params[<span class="string">'W1'</span>], self.params[<span class="string">'b1'</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    W2, b2 = self.params[<span class="string">'W2'</span>], self.params[<span class="string">'b2'</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    scores = <span class="literal">None</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    N, D = X.shape <span class="comment"># 定义一些需要用到的数字</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    hidden_1 = X.dot(W1) + b1 <span class="comment"># 这是全连接层</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    hidden_1[hidden_1&lt;<span class="number">0</span>] = <span class="number">0.0</span> <span class="comment"># 这是ReLU层</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    scores = hidden_1.dot(W2) + b2</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span> y <span class="keyword">is</span> <span class="literal">None</span>:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">return</span> scores</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">    loss = <span class="literal">None</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">    exp_scores = np.exp(scores)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">    softmax = exp_scores/np.sum(exp_scores, axis=<span class="number">1</span>, keepdims=<span class="literal">True</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">    loss = -np.sum(np.log(softmax[np.arange(N), y]))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">    loss = loss/N + reg*(np.sum(W1*W1) + np.sum(W2*W2)) <span class="comment"># 加上正则化项</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">    grads = []</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">    <span class="comment"># 以下计算梯度的过程建议自己像前几个练习一样求偏导得到结果，然后尝试进行矢量化的快速计算。无论如何链式法则总是很有用的。</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">    dscores = softmax</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line">    dscores[np.arange(N), y] -= <span class="number">1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">    dscores /= N</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line">    grads[<span class="string">'b2'</span>] = np.sum(dscores, axis=<span class="number">0</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line">    grads[<span class="string">'W2'</span>] = np.dot(hidden_1.T, dscores) + <span class="number">2</span>*reg*W2</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line">    dhidden_1 = np.dot(dscores, W2.T)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line">    grads[<span class="string">'b1'</span>] = np.sum(dhidden_1, axis=<span class="number">0</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line">    grads[<span class="string">'W1'</span>] = np.dot(X.T, dhidden_1) + <span class="number">2</span>*reg*W1</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">39</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">40</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> loss, grads</span></pre></td></tr></table></figure>
+<p>接下来，为了训练神经网络，我们将会使用随机梯度下降（SGD）的方法。先给出输入输出：</p>
+<p>Inputs:</p>
+<ul>
+<li>X: A numpy array of shape (N, D) giving training data.</li>
+<li>y: A numpy array of shape (N, ) giving training labels.</li>
+<li>X_val: A numpy array of shape (N_val, D) giving validation data.</li>
+<li>y_val: A numpy array of shape (N_val, ) giving validation labels.</li>
+<li>learning_rate: Scalar giving learning rate for optimation.</li>
+<li>learning_rate_decay: Scalar giving factor used to decay the learning rate after each epoch.</li>
+<li>reg: Scalar giving regularization strength.</li>
+<li>num_iters: Number of steps to take when optimizing.</li>
+<li>batch_size: Number of training examples to use per step.</li>
+<li>verbose: boolean; if true print progress during optimization.</li>
+</ul>
+<p>完成方法.train():</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train</span><span class="params">(self, X, y, X_val, y_val,</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="params">                learning_rate=<span class="number">1e-3</span>, learning_rate_dacay=<span class="number">0.95</span>,</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="params">                reg=<span class="number">5e-6</span>, num_iters=<span class="number">100</span>,</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="params">                batch_size=<span class="number">200</span>, verbose=False)</span>:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    num_train = X.shape[<span class="number">0</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    iterations_per_epoch = max(num_train/batch_size, <span class="number">1</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    loss_history = []</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    train_acc_history = []</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    val_acc_history = []</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">for</span> it <span class="keyword">in</span> range(num_iters):</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">        X_batch = <span class="literal">None</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">        y_batch = <span class="literal">None</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">        <span class="comment"># 首先用随机数取出所用的下标，replace=True时我们会得到不重复的数</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">        index = np.random.choice(np.arange(num_train), batch_size, replace=<span class="literal">True</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">        X_batch = X[index, :]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">        y_batch = y[index]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">        loss, grads = self.loss(X_batch, y_batch)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">        loss_history.append(loss)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">        <span class="comment"># 接下来更新参数</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">        self.params[<span class="string">'W1'</span>] -= learning_rate*grads[<span class="string">'W1'</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">        self.params[<span class="string">'b1'</span>] -= learning_rate*grads[<span class="string">'b1'</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">        self.params[<span class="string">'W2'</span>] -= learning_rate*grads[<span class="string">'W2'</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">        self.params[<span class="string">'b2'</span>] -= learning_rate*grads[<span class="string">'b2'</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">if</span> verbose <span class="keyword">and</span> it%<span class="number">100</span>==<span class="number">0</span>:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line">            print(<span class="string">'iteration %d / %d: loss %f'</span> % (it, num_iters, loss))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">if</span> it%iterations_per_epoch==<span class="number">0</span>:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line">            train_acc = (self.predict(X_batch)==y_batch).mean()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line">            val_acc = (self.predict(X_val)==y_val).mean()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line">            train_acc_history.append(train_acc)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line">            val_acc_history.append(val_acc)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">39</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">40</span></pre></td><td class="code"><pre><span class="line">            learning_rate *= learning_rate_decay</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">41</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">42</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">43</span></pre></td><td class="code"><pre><span class="line">        <span class="string">'loss_history'</span>: loss_history,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">44</span></pre></td><td class="code"><pre><span class="line">        <span class="string">'train_acc_history'</span>: train_acc_history,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">45</span></pre></td><td class="code"><pre><span class="line">        <span class="string">'val_acc_history'</span>: val_acc_history,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">46</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr></table></figure>
+<p>在上述过程中我们已经用到了一个没有完成的方法.predict():</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">predict</span><span class="params">(self, X)</span>:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    y_pred = <span class="literal">None</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    y_pred = np.argmax(self.loss(X), axis=<span class="number">1</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> y_pred</span></pre></td></tr></table></figure>
+<p>接下来的练习就是和之前类似的调参过程了，这里就不再赘述。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在本次练习中，我们完成了一个简单的二层全连接神经网络——当然，我们此时用的方法还是比较原始的、灵活性较差的，在接下来的练习中，我们将会学着分别完成每一层的函数以达到方便组合的目的。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/12/CS231N-Assignment1-SVM/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1167,7 +1288,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/12/21/CS231N-Assignment1-KNN/" class="post-title-link" itemprop="url">CS231N-Assigment1-KNN</a>
+            <a href="/2019/12/21/CS231N-Assignment1-KNN/" class="post-title-link" itemprop="url">CS231N-Assignment1-KNN</a>
         </h1>
 
         <div class="post-meta">
@@ -1184,7 +1305,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-08 14:17:22" itemprop="dateModified" datetime="2020-02-08T14:17:22+08:00">2020-02-08</time>
+                <time title="修改时间：2020-02-19 13:15:13" itemprop="dateModified" datetime="2020-02-19T13:15:13+08:00">2020-02-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1628,86 +1749,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/08/%E3%80%8A%E7%84%9A%E8%88%9F%E7%BA%AA%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="陈蔚">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="吃完的贝壳">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/08/%E3%80%8A%E7%84%9A%E8%88%9F%E7%BA%AA%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《焚舟纪》读书笔记</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-12-08 22:32:39" itemprop="dateCreated datePublished" datetime="2019-12-08T22:32:39+08:00">2019-12-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-10 17:15:14" itemprop="dateModified" datetime="2019-12-10T17:15:14+08:00">2019-12-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AF%BB%E4%B9%A6/" itemprop="url" rel="index">
-                    <span itemprop="name">读书</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="《焚舟纪》读书笔记"><a href="#《焚舟纪》读书笔记" class="headerlink" title="《焚舟纪》读书笔记"></a>《焚舟纪》读书笔记</h1><blockquote>
-<p>《焚舟纪》是英国著名女作家安吉拉·卡特的短篇小说全集，一套共五本四十二个短篇。五个集子依次是《烟火》、《染血之室与其他故事》、《黑色维纳斯》、《美国鬼魂与旧世界奇观》和《别册》。这些短篇多以童话、民间故事、文学经典为蓝本，文学女巫卡特以奇绝想象力和非凡叙事技巧将之加以戏仿、混酿、改装和重塑，并以通透戏谑的视角呈现出童话背后的冷僻真相，传奇之中的幽暗细节，为幻想世界打上现实投影，极具颠覆性却又不损奇幻之美，慑人之余又令人迷醉，形成融魔幻现实主义、女性主义、哥特风格和寓言色彩为一体的独特写作模式。</p>
-<p>因为是笔记所以是持续更新的哦。</p>
-</blockquote>
-<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><p>1. </p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1778,7 +1819,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
