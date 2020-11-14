@@ -53,7 +53,7 @@
 <meta property="og:site_name" content="吃完的贝壳">
 <meta property="og:description" content="CS231N-SVM SVM是CS231N中Assignment1的第二个习题，是Support Vector Machine（支持向量机）的简称。SVM致力于寻找一个对学习样本的最大边距超平面。 本次练习的重点在于完成多分类任务的支持向量机算法，并使用SGD进行优化操作。  线性SVM的损失函数假设一共使用了$m$个训练样本，其中第$i$个训练样本的对$i$个类别的得分分别为$(v_{i,1},">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-12T04:22:30.766Z">
+<meta property="og:updated_time" content="2020-04-08T13:20:48.446Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2020/02/12/CS231N-Assignment1-SVM/">
@@ -195,10 +195,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-02-12 10:39:02 / 修改时间：12:22:30" itemprop="dateCreated datePublished" datetime="2020-02-12T10:39:02+08:00">2020-02-12</time>
+              <time title="创建时间：2020-02-12 10:39:02" itemprop="dateCreated datePublished" datetime="2020-02-12T10:39:02+08:00">2020-02-12</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-08 21:20:48" itemprop="dateModified" datetime="2020-04-08T21:20:48+08:00">2020-04-08</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -233,7 +239,7 @@
 <p>本次练习的重点在于完成多分类任务的支持向量机算法，并使用SGD进行优化操作。</p>
 </blockquote>
 <h2 id="线性SVM的损失函数"><a href="#线性SVM的损失函数" class="headerlink" title="线性SVM的损失函数"></a>线性SVM的损失函数</h2><p>假设一共使用了$m$个训练样本，其中第$i$个训练样本的对$i$个类别的得分分别为$(v_{i,1},v_{i,2},\dots,v_{i,n})$，且其标签类别为$y_i$，则所求损失函数为：</p>
-<script type="math/tex; mode=display">Loss=-\displaystyle\sum_{i=1}^{m}{1(j\not=y_i)max\{0,v_{i,j}-v_{i,y_i}+1\}}</script><p>使用这种损失函数能够要求其余类别的得分需要比目标项的得分都低一定的值（这里选择的是1），从而达到了SVM的目的。</p>
+<script type="math/tex; mode=display">Loss=\displaystyle\sum_{i=1}^{m}{1(j\not=y_i)max\{0,v_{i,j}-v_{i,y_i}+1\}}</script><p>使用这种损失函数能够要求其余类别的得分需要比目标项的得分都低一定的值（这里选择的是1），从而达到了SVM的目的。</p>
 <p>以下我们再来简单地计算一下梯度：</p>
 <script type="math/tex; mode=display">
 \frac{\partial Loss}{\partial v_{i,j}}=\begin{cases}-k,j=y_i,其中k为满足j\not=y_j且v_{i,j}-v_{i,y_i}+1\geq0的j的个数\\0,j\not=y_i且v_{i,j}-v_{i,y_i}+1<0\\1,j\not=y_j且v_{i,j}-v_{i,y_i}+1\geq0\end{cases}</script><p>当然，在真正的应用中我们还应该注意加上正则化项。</p>
@@ -367,7 +373,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
