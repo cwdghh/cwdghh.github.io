@@ -17,7 +17,8 @@ void RecordManager::createTableFile(std::string table_name)
 //异常：无异常处理（由catalog manager处理）
 void RecordManager::dropTableFile(std::string table_name)
 {
-
+    table_name = ".\\database\\data\\" + table_name;
+    remove(table_name.c_str());
 }
 
 //输入：表名，一个元组
